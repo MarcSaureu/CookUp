@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">CookUp</string>
+    <string name="searcher">Buscar</string>
 </resources>
