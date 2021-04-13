@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">CookUp</string>
     <string name="searcher">Buscar</string>
+    <string name="search_bar">Escriu per buscar</string>
 </resources>

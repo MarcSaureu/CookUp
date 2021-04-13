@@ -24,7 +24,10 @@
                 android:id="@+id/Search"
                 android:layout_width="200dp"
                 android:layout_height="50dp"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center"
+                android:inputType="text"
+                android:hint="@string/search_bar"
+                tools:ignore="Autofill" />
 
             <Spinner
                 android:id="@+id/spinner1"
