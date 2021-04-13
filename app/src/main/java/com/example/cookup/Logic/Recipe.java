@@ -14,11 +14,15 @@ public class Recipe {
     private ArrayList<Ingredient> ingredients = new ArrayList<>();
     private ArrayList<Preparation> preparations = new ArrayList<>();
 
+    public Recipe(String name) {
+        this.name = name;
+    }
+
     public void addIngredient(Ingredient ingredient){
         this.ingredients.add(ingredient);
     }
 
-    public void addPreparations(Preparation preparation){
+    public void addPreparation(Preparation preparation){
         this.preparations.add(preparation);
     }
 }
