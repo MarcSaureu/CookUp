@@ -2,7 +2,10 @@ package com.example.cookup;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,25 +20,42 @@ public class RecipeActivity extends AppCompatActivity implements View.OnClickLis
     private ArrayList<Ingredient> ingredients = new ArrayList<>();
     private ArrayList<Preparation> preparations = new ArrayList<>();
 
+    ListView Ingredients;
+    ListView Preparations;
+
+    ArrayAdapter<Ingredient> AdapterIngredient;
+    ArrayAdapter<Preparation> AdapterPreparation;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_addrecipe);
+
+        Ingredients = findViewById(R.id.IngredientList);
+        Preparations = findViewById(R.id.PreparationList);
+
+        Button addIngredient = findViewById(R.id.addIngredientButton);
+        Button addPreparation = findViewById(R.id.addPreparationButton);
+        Button createRecipe = findViewById(R.id.createRecipeButton);
+
+        addIngredient.setOnClickListener(this);
+        addPreparation.setOnClickListener(this);
+        createRecipe.setOnClickListener(this);
     }
 
 
     @Override
     public void onClick(View v) {
         switch(v.getId()){
-            case 1:
+            case R.id.addIngredientButton:
                 //ActivityForResult Ingredient
                 break;
 
-            case 2:
+            case R.id.addPreparationButton:
                 //ActivityForResult Preparation
                 break;
 
-            case 3:
+            case R.id.createRecipeButton:
                 Recipe recipe = createRecipeWithValues();
                 for(Ingredient ingredient: ingredients){
                     recipe.addIngredient((ingredient));
