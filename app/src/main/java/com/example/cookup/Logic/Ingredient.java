@@ -11,4 +11,9 @@ public class Ingredient {
     private int amount;
     private Type type;
 
+    public Ingredient(String ingredient, int amount, Type type) {
+        this.ingredient = ingredient;
+        this.amount = amount;
+        this.type = type;
+    }
 }

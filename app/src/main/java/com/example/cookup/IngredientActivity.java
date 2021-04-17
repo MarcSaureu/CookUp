@@ -45,12 +45,7 @@ public class IngredientActivity extends AppCompatActivity implements View.OnClic
             ingredientType = Type.ml;
         }
 
-        Ingredient ingredient = new Ingredient();
-
-        ingredient.setIngredient(name);
-        ingredient.setAmount(amount);
-        ingredient.setType(ingredientType);
-
+        Ingredient ingredient = new Ingredient(name,amount,ingredientType);
 
     }
 }
