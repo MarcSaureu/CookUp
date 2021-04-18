@@ -3,10 +3,12 @@ package com.example.cookup.Logic;
 
 import com.example.cookup.Logic.Enums.Type;
 
+import java.io.Serializable;
+
 import lombok.Data;
 
 @Data
-public class Ingredient {
+public class Ingredient implements Serializable {
     private String ingredient;
     private int amount;
     private Type type;

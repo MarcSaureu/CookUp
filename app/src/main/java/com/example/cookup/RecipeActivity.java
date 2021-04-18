@@ -1,5 +1,6 @@
 package com.example.cookup;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -48,7 +49,8 @@ public class RecipeActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.addIngredientButton:
-                //ActivityForResult Ingredient
+                Intent intent = new Intent(RecipeActivity.this, IngredientActivity.class);
+                startActivityForResult(intent,2);
                 break;
 
             case R.id.addPreparationButton:
@@ -69,6 +71,20 @@ public class RecipeActivity extends AppCompatActivity implements View.OnClickLis
                 finish();
         }
 
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode,resultCode,data);
+        if(requestCode == 2){
+            if(resultCode == RESULT_OK){
+                Ingredient ingredient = (Ingredient) data.getSerializableExtra("ingredient");
+                ingredients.add(ingredient);
+            }
+        }else if(requestCode == 3){
+            if(resultCode == RESULT_OK){
+
+            }
+        }
     }
 
     public Recipe createRecipeWithValues(){
