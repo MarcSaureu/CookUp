@@ -14,4 +14,6 @@
     <string name="ingredientname">Nom del Ingredient</string>
     <string name="ingredientamount">Quantitat</string>
     <string name="ingredienttype">Tipus de quantitat</string>
+    <string name="ingredientpreparation">Preparacio</string>
+    <string name="createPreparation">Crear Preparation</string>
 </resources>

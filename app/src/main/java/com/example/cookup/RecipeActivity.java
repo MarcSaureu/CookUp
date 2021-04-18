@@ -49,12 +49,13 @@ public class RecipeActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.addIngredientButton:
-                Intent intent = new Intent(RecipeActivity.this, IngredientActivity.class);
-                startActivityForResult(intent,2);
+                Intent ingintent = new Intent(RecipeActivity.this, IngredientActivity.class);
+                startActivityForResult(ingintent,2);
                 break;
 
             case R.id.addPreparationButton:
-                //ActivityForResult Preparation
+                Intent prepintent = new Intent(RecipeActivity.this, PreparationActivity.class);
+                startActivityForResult(prepintent,3);
                 break;
 
             case R.id.createRecipeButton:
@@ -82,7 +83,8 @@ public class RecipeActivity extends AppCompatActivity implements View.OnClickLis
             }
         }else if(requestCode == 3){
             if(resultCode == RESULT_OK){
-
+                Preparation preparation =(Preparation) data.getSerializableExtra("preparation");
+                preparations.add(preparation);
             }
         }
     }
