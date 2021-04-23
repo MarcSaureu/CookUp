@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+                android:layout_width="190dp"
+                android:layout_height="match_parent"
+                android:text="@string/nameRecipe"
+                android:gravity="center"/>
+
+            <EditText
+                android:id="@+id/nameRecipe"
+                android:layout_width="200dp"
+                android:layout_height="match_parent"
+                android:inputType="text"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+                android:layout_width="190dp"
+                android:layout_height="match_parent"
+                android:text="@string/dishtype"
+                android:gravity="center"/>
+
+            <EditText
+                android:id="@+id/foodtype"
+                android:layout_width="200dp"
+                android:layout_height="match_parent"
+                android:inputType="text"/>
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp">
+
+
+            <TextView
+                android:layout_width="190dp"
+                android:layout_height="match_parent"
+                android:text="@string/dishtype"
+                android:gravity="center"/>
+
+            <EditText
+                android:id="@+id/dishype"
+                android:layout_width="200dp"
+                android:layout_height="match_parent"
+                android:inputType="text"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/Searcher_button"
+            android:layout_width="120dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_margin="20dp"
+            android:text="@string/searcher"
+            android:textSize="12sp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="252dp">
+
+        </TextView>
+
+        <LinearLayout
+            android:id="@+id/ButtonLayout"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:orientation="horizontal"
+            android:layout_gravity="bottom">
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>
