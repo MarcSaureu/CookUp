@@ -67,7 +67,7 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/Searcher_button"
+            android:id="@+id/AdvSearcher_button"
             android:layout_width="120dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
