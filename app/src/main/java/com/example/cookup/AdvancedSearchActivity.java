@@ -1,11 +1,14 @@
 package com.example.cookup;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.cookup.Logic.Preparation;
 
 public class AdvancedSearchActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -33,6 +36,8 @@ public class AdvancedSearchActivity extends AppCompatActivity implements View.On
 
         if(name.isEmpty() && food.isEmpty() && dish.isEmpty()){
             //Retornar la view amb totes les receptes // Crida a la Main Activity Normal on ella fara la crida a FireBase per obtindre les receptes
+            Intent mainintent = new Intent(AdvancedSearchActivity.this, MainActivity.class);
+            startActivityForResult(mainintent,2);
         }
         //En altres casos crida a la Main Activity amb la query obtinguda per FireBase amb les receptes a mostrar
     }
