@@ -23,6 +23,7 @@
         </LinearLayout>
 
         <EditText
+            android:background="@drawable/prep_text"
             android:id="@+id/passPreparation"
             android:layout_width="match_parent"
             android:layout_height="200dp"
@@ -41,6 +42,7 @@
             android:layout_height="218dp">
 
         </TextView>
+
         <LinearLayout
             android:id="@+id/ButtonLayout"
             android:layout_width="match_parent"
@@ -48,6 +50,7 @@
             android:orientation="horizontal">
 
         </LinearLayout>
+
     </LinearLayout>
 
 </RelativeLayout>
