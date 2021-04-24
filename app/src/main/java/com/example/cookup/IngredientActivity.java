@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -42,7 +43,6 @@ public class IngredientActivity extends AppCompatActivity implements View.OnClic
         intent.putExtra("ingredient", ingredient);
         setResult(RESULT_OK, intent);
         finish();
-
     }
 
     public Type setType(String type){

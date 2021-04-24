@@ -7,6 +7,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -42,6 +43,16 @@ public class RecipeActivity extends AppCompatActivity implements View.OnClickLis
         Button addPreparation = findViewById(R.id.addPreparationButton);
         Button createRecipe = findViewById(R.id.createRecipeButton);
 
+        Button home = findViewById(R.id.HomeButton);
+        Button search = findViewById(R.id.SearchButton);
+        Button addR = findViewById(R.id.AddRecipeButton);
+        Button profile = findViewById(R.id.ProfileButton);
+
+        home.setOnClickListener(this);
+        search.setOnClickListener(this);
+        addR.setOnClickListener(this);
+        profile.setOnClickListener(this);
+
         addIngredient.setOnClickListener(this);
         addPreparation.setOnClickListener(this);
         createRecipe.setOnClickListener(this);
@@ -69,10 +80,34 @@ public class RecipeActivity extends AppCompatActivity implements View.OnClickLis
                 for(Preparation preparation: preparations){
                     recipe.addPreparation(preparation);
                 }
-
                 //Guardar a Firebase
-
                 finish();
+                break;
+
+            case R.id.HomeButton:
+                Intent mainintent = new Intent(RecipeActivity.this, MainActivity.class);
+                startActivity(mainintent);
+                finish();
+                break;
+
+            case R.id.SearchButton:
+                Intent searchintent = new Intent(RecipeActivity.this, AdvancedSearchActivity.class);
+                startActivity(searchintent);
+                finish();
+                break;
+
+            case R.id.AddRecipeButton:
+                Intent addrecipeintent = new Intent(RecipeActivity.this, RecipeActivity.class);
+                startActivity(addrecipeintent);
+                finish();
+                break;
+
+            case R.id.ProfileButton:
+                Intent profileintent = new Intent(RecipeActivity.this, MainActivity.class);
+                Toast.makeText(this, "Intent Profile", Toast.LENGTH_SHORT).show();
+                startActivity(profileintent);
+                finish();
+                break;
         }
 
     }
