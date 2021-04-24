@@ -18,4 +18,13 @@ public class Ingredient implements Serializable {
         this.amount = amount;
         this.type = type;
     }
+
+    @Override
+    public String toString() {
+        return "Ingredient{" +
+                "ingredient='" + ingredient + '\'' +
+                ", amount=" + amount +
+                ", type=" + type +
+                '}';
+    }
 }

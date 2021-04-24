@@ -11,4 +11,11 @@ public class Preparation implements Serializable {
     public Preparation(String pass) {
         this.pass = pass;
     }
+
+    @Override
+    public String toString() {
+        return "Preparation{" +
+                "pass='" + pass + '\'' +
+                '}';
+    }
 }

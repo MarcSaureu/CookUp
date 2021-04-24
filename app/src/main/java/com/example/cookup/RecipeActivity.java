@@ -21,11 +21,14 @@ public class RecipeActivity extends AppCompatActivity implements View.OnClickLis
     private ArrayList<Ingredient> ingredients = new ArrayList<>();
     private ArrayList<Preparation> preparations = new ArrayList<>();
 
+    private ArrayList<String> ingr = new ArrayList<>();
+    private ArrayList<String> prep = new ArrayList<>();
+
     ListView Ingredients;
     ListView Preparations;
 
-    ArrayAdapter<Ingredient> AdapterIngredient;
-    ArrayAdapter<Preparation> AdapterPreparation;
+    ArrayAdapter<String> ingradapter;
+    ArrayAdapter<String> prepadapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,13 +83,27 @@ public class RecipeActivity extends AppCompatActivity implements View.OnClickLis
             if(resultCode == RESULT_OK){
                 Ingredient ingredient = (Ingredient) data.getSerializableExtra("ingredient");
                 ingredients.add(ingredient);
+                ingr.add(ingredient.toString());
+                LoadAdapterIngredients();
             }
         }else if(requestCode == 3){
             if(resultCode == RESULT_OK){
                 Preparation preparation =(Preparation) data.getSerializableExtra("preparation");
                 preparations.add(preparation);
+                prep.add(preparation.toString());
+                LoadAdapterPreparations();
             }
         }
+    }
+
+    public void LoadAdapterIngredients(){
+        ingradapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1 , ingr);
+        Ingredients.setAdapter(ingradapter);
+    }
+
+    public void LoadAdapterPreparations(){
+        prepadapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, prep);
+        Preparations.setAdapter(prepadapter);
     }
 
     public Recipe createRecipeWithValues(){
