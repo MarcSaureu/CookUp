@@ -1,11 +1,12 @@
 package com.example.cookup.Logic;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import lombok.Data;
 
 @Data
-public class Recipe {
+public class Recipe implements Serializable {
     private String name;
     private String dishtype;
     private String foodtype;
