@@ -10,13 +10,14 @@
     <string name="addPreparation">Afegir Preparacio</string>
     <string name="createRecipe">Crear Recepta</string>
     <string name="addIngredient">Afegir Ingredient</string>
-    <string name="name">Marc Saureu</string>
+    <string name="name">Nom</string>
+    <string name="namedefault">Marc Saureu</string>
     <string name="editProfileButton">Editar</string>
-    <string name="emailInput">abcdefg@gmail.com</string>
-    <string name="membership">Membership:</string>
-    <string name="address">Address:</string>
+    <string name="membership">Membership</string>
+    <string name="address">Address</string>
     <string name="membershipInput">PREMIUM</string>
-    <string name="email">E-mail:</string>
+    <string name="email">E-mail</string>
+    <string name="emaildefault">abcdefg@gmail.com</string>
     <string name="addressInput">Barcelona, Plaça Catalunya 29</string>
     <string name="title_activity_profile">ProfileActivity</string>
     <!-- Strings used for fragments for navigation -->
@@ -24,8 +25,12 @@
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
+    <string name="config">Configuració</string>
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="nickname">Nom:</string>
+    <string name="saveProfile">Guardar</string>
+    <string name="cancelSaveProfile">Cancel</string>
 
 </resources>
