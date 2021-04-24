@@ -41,12 +41,10 @@
 
         </LinearLayout>
 
-        <ScrollView
-            android:id="@+id/ScrollViewPart"
+        <ListView
+            android:id="@+id/RecipeList"
             android:layout_width="match_parent"
-            android:layout_height="508dp">
-
-        </ScrollView>
+            android:layout_height="508dp"/>
 
         <LinearLayout
             android:id="@+id/ButtonLayout"

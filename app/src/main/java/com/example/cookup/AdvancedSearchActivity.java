@@ -40,5 +40,9 @@ public class AdvancedSearchActivity extends AppCompatActivity implements View.On
             startActivity(mainintent);
         }
         //En altres casos crida a la Main Activity amb la query obtinguda per FireBase amb les receptes a mostrar
+
+        Intent mainintent = new Intent(AdvancedSearchActivity.this, MainActivity.class);
+        mainintent.putExtra("recipe", "");//Afegir el result de la query de Firebase
+        startActivity(mainintent);
     }
 }
