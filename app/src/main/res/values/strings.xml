@@ -32,5 +32,9 @@
     <string name="nickname">Nom:</string>
     <string name="saveProfile">Guardar</string>
     <string name="cancelSaveProfile">Cancel</string>
+    <string name="maps">mapsEnable</string>
+    <string name="location">Localització</string>
+    <string name="locationdefault">Apagada</string>
+    <string name="locationOn">Apagada</string>
 
 </resources>

@@ -6,25 +6,32 @@
         android:selectAllOnFocus="true"
         android:singleLine="true"
         android:title="@string/name"
-        android:maxLength="15"
+        android:maxLength="8"
         />
 
     <EditTextPreference
-        android:defaultValue="@string/emaildefault"
+        android:defaultValue="false"
         android:key="@string/email"
+        android:maxLength="30"
         android:selectAllOnFocus="true"
         android:singleLine="true"
-        android:title="@string/email"
-        android:maxLength="15"
+        android:title="@string/email" />
+
+    <EditTextPreference
+        android:defaultValue="@string/addressInput"
+        android:key="@string/address"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="@string/address"
+        android:maxLength="30"
         />
 
-    <Preference
-        android:defaultValue="Normal"
-        android:key="@string/membership"
-        android:selectAllOnFocus="true"
+
+    <SwitchPreference
+        android:defaultValue="@string/locationdefault"
+        android:key="@string/maps"
+        android:title="Enable maps"
         android:singleLine="true"
-        android:title="@string/membership"
-        android:maxLength="15"
         />
 
 </PreferenceScreen>
