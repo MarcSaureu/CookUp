@@ -37,7 +37,7 @@ public class AdvancedSearchActivity extends AppCompatActivity implements View.On
         if(name.isEmpty() && food.isEmpty() && dish.isEmpty()){
             //Retornar la view amb totes les receptes // Crida a la Main Activity Normal on ella fara la crida a FireBase per obtindre les receptes
             Intent mainintent = new Intent(AdvancedSearchActivity.this, MainActivity.class);
-            startActivityForResult(mainintent,2);
+            startActivity(mainintent);
         }
         //En altres casos crida a la Main Activity amb la query obtinguda per FireBase amb les receptes a mostrar
     }
