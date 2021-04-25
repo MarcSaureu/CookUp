@@ -100,7 +100,6 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.LocationButton:
                 Intent locationIntent = new Intent(ProfileActivity.this, MapsActivity.class);
                 startActivity(locationIntent);
-                finish();
                 break;
         }
     }
