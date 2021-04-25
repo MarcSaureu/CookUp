@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.cookup.maps.MapsActivity;
+
 public class ProfileActivity extends AppCompatActivity implements View.OnClickListener {
 
     @Override
@@ -24,11 +26,13 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         Button search = findViewById(R.id.SearchButton);
         Button addR = findViewById(R.id.AddRecipeButton);
         Button profile = findViewById(R.id.ProfileButton);
+        Button maps = (Button) findViewById(R.id.LocationButton);
 
         home.setOnClickListener(this);
         search.setOnClickListener(this);
         addR.setOnClickListener(this);
         profile.setOnClickListener(this);
+        maps.setOnClickListener(this);
 
     }
 
@@ -90,6 +94,12 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.ProfileButton:
                 Intent profileintent = new Intent(ProfileActivity.this, ProfileActivity.class);
                 startActivity(profileintent);
+                finish();
+                break;
+
+            case R.id.LocationButton:
+                Intent locationIntent = new Intent(ProfileActivity.this, MapsActivity.class);
+                startActivity(locationIntent);
                 finish();
                 break;
         }

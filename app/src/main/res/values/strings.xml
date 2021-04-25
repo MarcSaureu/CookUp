@@ -42,5 +42,6 @@
     <string name="location">Localització</string>
     <string name="locationdefault">Apagada</string>
     <string name="locationOn">Apagada</string>
+    <string name="title_activity_maps">Map</string>
 
 </resources>
