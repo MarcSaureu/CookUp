@@ -13,8 +13,6 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.cookup.maps.MapsActivity;
-
 public class ProfileActivity extends AppCompatActivity implements View.OnClickListener {
 
     @Override
@@ -46,33 +44,20 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
         TextView name = (TextView) findViewById(R.id.namedefault);
         TextView email = (TextView) findViewById(R.id.emailInput);
-        TextView address = (TextView) findViewById(R.id.addressInput);
-        TextView location = (TextView) findViewById(R.id.locationInput);
-
 
         SharedPreferences mySharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         String alias = mySharedPreferences.getString(getString(R.string.name), "No name");
         String mail = mySharedPreferences.getString(getString(R.string.email), "No email");
-        String place = mySharedPreferences.getString(getString(R.string.address), "No address");
-        boolean locationEnable = mySharedPreferences.getBoolean(getString(R.string.maps), false);
 
         name.setText(alias);
         email.setText(mail);
-        address.setText(place);
-
-        if(locationEnable){
-            location.setText(R.string.locationOn);
-        } else {
-            location.setText(R.string.locationdefault);
-        }
-
 
     }
 
     @Override
     public void onClick(View v) {
-        switch(v.getId()){
+        switch (v.getId()) {
             case R.id.HomeButton:
                 Intent mainintent = new Intent(ProfileActivity.this, MainActivity.class);
                 startActivity(mainintent);
@@ -100,7 +85,6 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.LocationButton:
                 Intent locationIntent = new Intent(ProfileActivity.this, MapsActivity.class);
                 startActivity(locationIntent);
-                finish();
                 break;
         }
     }

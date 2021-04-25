@@ -17,21 +17,5 @@
         android:singleLine="true"
         android:title="@string/email" />
 
-    <EditTextPreference
-        android:defaultValue="@string/addressInput"
-        android:key="@string/address"
-        android:selectAllOnFocus="true"
-        android:singleLine="true"
-        android:title="@string/address"
-        android:maxLength="30"
-        />
-
-
-    <SwitchPreference
-        android:defaultValue="@string/locationdefault"
-        android:key="@string/maps"
-        android:title="Enable maps"
-        android:singleLine="true"
-        />
 
 </PreferenceScreen>
