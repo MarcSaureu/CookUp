@@ -10,6 +10,12 @@
     <string name="addPreparation">Afegir Preparacio</string>
     <string name="createRecipe">Crear Recepta</string>
     <string name="addIngredient">Afegir Ingredient</string>
+    <string name="createIngredient">Crear Ingredient</string>
+    <string name="ingredientname">Nom del Ingredient</string>
+    <string name="ingredientamount">Quantitat</string>
+    <string name="ingredienttype">Tipus de quantitat</string>
+    <string name="ingredientpreparation">Preparacio</string>
+    <string name="createPreparation">Crear Preparacio</string>
     <string name="name">Marc Saureu</string>
     <string name="editProfileButton">Editar</string>
     <string name="emailInput">abcdefg@gmail.com</string>
