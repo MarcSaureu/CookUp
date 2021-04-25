@@ -10,10 +10,22 @@
     <string name="addPreparation">Afegir Preparacio</string>
     <string name="createRecipe">Crear Recepta</string>
     <string name="addIngredient">Afegir Ingredient</string>
-    <string name="createIngredient">Crear Ingredient</string>
-    <string name="ingredientname">Nom del Ingredient</string>
-    <string name="ingredientamount">Quantitat</string>
-    <string name="ingredienttype">Tipus de quantitat</string>
-    <string name="ingredientpreparation">Preparacio</string>
-    <string name="createPreparation">Crear Preparacio</string>
+    <string name="name">Marc Saureu</string>
+    <string name="editProfileButton">Editar</string>
+    <string name="emailInput">abcdefg@gmail.com</string>
+    <string name="membership">Membership:</string>
+    <string name="address">Address:</string>
+    <string name="membershipInput">PREMIUM</string>
+    <string name="email">E-mail:</string>
+    <string name="addressInput">Barcelona, Plaça Catalunya 29</string>
+    <string name="title_activity_profile">ProfileActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
 </resources>
