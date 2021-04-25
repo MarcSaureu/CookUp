@@ -41,7 +41,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         String alias = mySharedPreferences.getString(getString(R.string.name), "No name");
         String mail = mySharedPreferences.getString(getString(R.string.email), "No email");
         String place = mySharedPreferences.getString(getString(R.string.address), "No address");
-        boolean locationEnable = mySharedPreferences.getBoolean(R.string.maps, false);
+        boolean locationEnable = mySharedPreferences.getBoolean(getString(R.string.maps), false);
 
         name.setText(alias);
         email.setText(mail);
