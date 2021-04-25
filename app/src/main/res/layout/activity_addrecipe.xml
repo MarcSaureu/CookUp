@@ -135,11 +135,11 @@
             <ListView
                 android:id="@+id/IngredientList"
                 android:layout_width="195dp"
-                android:layout_height="50dp"/>
+                android:layout_height="215dp"/>
             <ListView
                 android:id="@+id/PreparationList"
                 android:layout_width="195dp"
-                android:layout_height="50dp"/>
+                android:layout_height="215dp"/>
 
         </LinearLayout>
 

@@ -14,8 +14,6 @@ public class Preparation implements Serializable {
 
     @Override
     public String toString() {
-        return "Preparation{" +
-                "pass='" + pass + '\'' +
-                '}';
+        return pass;
     }
 }

@@ -63,7 +63,8 @@
                 android:id="@+id/spinnerType"
                 android:layout_width="200dp"
                 android:layout_height="60dp"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center"
+                android:entries="@array/type_array" />
 
         </LinearLayout>
 
