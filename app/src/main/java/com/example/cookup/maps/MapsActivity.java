@@ -5,16 +5,11 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 
-<<<<<<< HEAD
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import com.example.cookup.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
-=======
-import com.example.cookup.R;
-import com.google.android.gms.maps.CameraUpdateFactory;
->>>>>>> 4329829ebaf5af0a4290fd9d3a6177807a2e290a
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
