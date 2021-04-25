@@ -34,7 +34,10 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment:2.2.2'
     implementation 'androidx.navigation:navigation-ui:2.2.2'
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
+<<<<<<< HEAD
     implementation 'com.google.android.gms:play-services-location:18.0.0'
+=======
+>>>>>>> 4329829ebaf5af0a4290fd9d3a6177807a2e290a
     compileOnly "org.projectlombok:lombok:1.18.12"
     annotationProcessor 'org.projectlombok:lombok:1.18.12'
 
