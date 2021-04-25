@@ -108,8 +108,7 @@ public class RecipeViewActivity extends AppCompatActivity implements View.OnClic
                 break;
 
             case R.id.ProfileButton:
-                Intent profileintent = new Intent(RecipeViewActivity.this, MainActivity.class);
-                Toast.makeText(this, "Intent Profile", Toast.LENGTH_SHORT).show();
+                Intent profileintent = new Intent(RecipeViewActivity.this, ProfileActivity.class);
                 startActivity(profileintent);
                 finish();
                 break;

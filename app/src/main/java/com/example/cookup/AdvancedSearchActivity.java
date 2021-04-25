@@ -55,8 +55,7 @@ public class AdvancedSearchActivity extends AppCompatActivity implements View.On
                 break;
 
             case R.id.ProfileButton:
-                Intent profileintent = new Intent(AdvancedSearchActivity.this, MainActivity.class);
-                Toast.makeText(this, "Intent Profile", Toast.LENGTH_SHORT).show();
+                Intent profileintent = new Intent(AdvancedSearchActivity.this, ProfileActivity.class);
                 startActivity(profileintent);
                 finish();
                 break;
