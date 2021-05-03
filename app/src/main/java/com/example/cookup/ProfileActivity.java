@@ -10,10 +10,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class ProfileActivity extends AppCompatActivity implements View.OnClickListener {
+
+
+    TextView coord;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +49,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
         TextView name = (TextView) findViewById(R.id.namedefault);
         TextView email = (TextView) findViewById(R.id.emailInput);
+        coord = (TextView) findViewById(R.id.coordinates);
 
         SharedPreferences mySharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -84,8 +90,23 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
             case R.id.LocationButton:
                 Intent locationIntent = new Intent(ProfileActivity.this, MapsActivity.class);
-                startActivity(locationIntent);
+                startActivityForResult(locationIntent, 2);
                 break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == 2){
+            if(resultCode == RESULT_OK){
+                String lat = data.getStringExtra("Lat");
+                String lon = data.getStringExtra("Lon");
+                //coord.setText(lat + "\n" + lon);
+                Toast.makeText(getApplicationContext(),"Lat: " + lat + "\n" + "Lon: " + lon, Toast.LENGTH_LONG).show();
+
+            }
         }
     }
 
