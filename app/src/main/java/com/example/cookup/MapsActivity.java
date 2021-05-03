@@ -91,7 +91,7 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
     public void onMapReady(GoogleMap googleMap) {
 
         map = googleMap;
-        Toast.makeText(getApplicationContext(),"AA " + lat + lon, Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(),"" + lat + lon, Toast.LENGTH_LONG).show();
         LatLng actualPosition = new LatLng(lat, lon);
         map.addMarker(new MarkerOptions().position(actualPosition).title("Marker in your Actual Position"));
         map.moveCamera(CameraUpdateFactory.newLatLng(actualPosition));

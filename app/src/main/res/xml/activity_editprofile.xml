@@ -18,14 +18,14 @@
         android:title="@string/email" />
 
     <EditTextPreference
-        android:defaultValue="@string/latDefault"
+        android:defaultValue="0"
         android:key="@string/latitud"
         android:selectAllOnFocus="true"
         android:singleLine="true"
         android:title="@string/latitud" />
 
     <EditTextPreference
-        android:defaultValue="@string/lonDefault"
+        android:defaultValue="0"
         android:key="@string/longitud"
         android:selectAllOnFocus="true"
         android:singleLine="true"
