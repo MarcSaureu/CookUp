@@ -64,9 +64,9 @@ public class AdvancedSearchActivity extends AppCompatActivity implements View.On
                 break;
 
             case R.id.AdvSearcher_button:
-                EditText nameRecipe = findViewById(R.id.nameRecipe);
-                EditText foodtype = findViewById(R.id.foodtype);
-                EditText dishtype = findViewById(R.id.dishtype);
+                EditText nameRecipe = findViewById(R.id.nameRecipesearch);
+                EditText foodtype = findViewById(R.id.foodtypesearch);
+                EditText dishtype = findViewById(R.id.dishtypesearch);
 
                 String name = nameRecipe.getText().toString();
                 String food = foodtype.getText().toString();
@@ -82,7 +82,7 @@ public class AdvancedSearchActivity extends AppCompatActivity implements View.On
                 //En altres casos crida a la Main Activity amb la query obtinguda per FireBase amb les receptes a mostrar
 
                 Intent mainintent1 = new Intent(AdvancedSearchActivity.this, MainActivity.class);
-                mainintent1.putExtra("recipe", "");//Afegir el result de la query de Firebase
+                //mainintent1.putExtra("recipe", "");//Afegir el result de la query de Firebase
                 startActivity(mainintent1);
         }
 

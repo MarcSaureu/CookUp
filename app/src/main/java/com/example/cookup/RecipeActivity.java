@@ -84,6 +84,8 @@ public class RecipeActivity extends AppCompatActivity implements View.OnClickLis
                     recipe.addPreparation(preparation);
                 }
                 //Guardar a Firebase
+                Intent mainintent2 = new Intent(RecipeActivity.this, MainActivity.class);
+                startActivity(mainintent2);
                 finish();
                 break;
 
