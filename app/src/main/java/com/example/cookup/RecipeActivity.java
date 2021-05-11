@@ -2,6 +2,7 @@ package com.example.cookup;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -12,11 +13,16 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.cookup.Logic.Ingredient;
 import com.example.cookup.Logic.Preparation;
 import com.example.cookup.Logic.Recipe;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
@@ -76,6 +82,8 @@ public class RecipeActivity extends AppCompatActivity implements View.OnClickLis
                 break;
 
             case R.id.createRecipeButton:
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+
                 Recipe recipe = createRecipeWithValues();
                 for(Ingredient ingredient: ingredients){
                     recipe.addIngredient((ingredient));
@@ -83,6 +91,7 @@ public class RecipeActivity extends AppCompatActivity implements View.OnClickLis
                 for(Preparation preparation: preparations){
                     recipe.addPreparation(preparation);
                 }
+                addRecipeToFirebase(recipe,db);
                 //Guardar a Firebase
                 Intent mainintent2 = new Intent(RecipeActivity.this, MainActivity.class);
                 startActivity(mainintent2);
@@ -185,5 +194,9 @@ public class RecipeActivity extends AppCompatActivity implements View.OnClickLis
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void addRecipeToFirebase(Recipe recipe , FirebaseFirestore db){
+        db.collection("recipes").document(recipe.getName()).set(recipe);
     }
 }
