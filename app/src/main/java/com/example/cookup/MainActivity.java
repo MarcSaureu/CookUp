@@ -39,6 +39,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Intent intent = getIntent();
+        recipes = (ArrayList<Recipe>) intent.getSerializableExtra("recipes");
+
+        if(recipes.size() == 0){
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            db.collection("recipes").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if(task.isSuccessful()){
+                        for(QueryDocumentSnapshot document : task.getResult()){
+                            recipes.add(document.toObject(Recipe.class));
+                        }
+                    }
+                }
+            });
+        }
+
+
 
         Button home = findViewById(R.id.HomeButton);
         Button search = findViewById(R.id.SearchButton);
@@ -49,19 +67,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         search.setOnClickListener(this);
         addR.setOnClickListener(this);
         profile.setOnClickListener(this);
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("recipes").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if(task.isSuccessful()){
-                    for(QueryDocumentSnapshot document : task.getResult()){
-                        recipes.add(document.toObject(Recipe.class));
-                    }
-                }
-            }
-        });
-
-        //Obtindre les receptes de Firebase
 
         Recipe = findViewById(R.id.RecipeList);
 
