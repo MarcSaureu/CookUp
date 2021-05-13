@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         Intent intent = getIntent();
-        recipes = (ArrayList<Recipe>) intent.getSerializableExtra("recipes");
+        recipes.addAll((ArrayList<Recipe>) intent.getSerializableExtra("recipes"));
 
         if(recipes.size() == 0){
             FirebaseFirestore db = FirebaseFirestore.getInstance();
