@@ -1,5 +1,6 @@
 package com.example.cookup;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -14,6 +15,12 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.cookup.Logic.Recipe;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
@@ -42,6 +49,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         search.setOnClickListener(this);
         addR.setOnClickListener(this);
         profile.setOnClickListener(this);
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("recipes").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    for(QueryDocumentSnapshot document : task.getResult()){
+                        recipes.add(document.toObject(Recipe.class));
+                    }
+                }
+            }
+        });
 
         //Obtindre les receptes de Firebase
 

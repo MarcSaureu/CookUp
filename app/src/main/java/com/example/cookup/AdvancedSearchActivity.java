@@ -10,11 +10,24 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.cookup.Logic.Preparation;
+import com.example.cookup.Logic.Recipe;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
 
 public class AdvancedSearchActivity extends AppCompatActivity implements View.OnClickListener {
+
+    private ArrayList<Recipe> recipes = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,9 +93,32 @@ public class AdvancedSearchActivity extends AppCompatActivity implements View.On
                     startActivity(mainintent1);
                 }
                 //En altres casos crida a la Main Activity amb la query obtinguda per FireBase amb les receptes a mostrar
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+                CollectionReference recipecollection = db.collection("recipes");
+
+                if(!name.isEmpty()){
+                    recipecollection.whereEqualTo("name", name);
+                }
+                if(!food.isEmpty()){
+                    recipecollection.whereEqualTo("foodtype", food);
+                }
+                if(!dish.isEmpty()){
+                    recipecollection.whereEqualTo("dishtype", dish);
+                }
+
+                recipecollection.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()){
+                            for(QueryDocumentSnapshot document : task.getResult()){
+                                recipes.add(document.toObject(Recipe.class));
+                            }
+                        }
+                    }
+                });
                 Intent mainintent1 = new Intent(AdvancedSearchActivity.this, MainActivity.class);
-                //mainintent1.putExtra("recipe", "");//Afegir el result de la query de Firebase
+                mainintent1.putExtra("recipes", recipes);//Afegir el result de la query de Firebase
                 startActivity(mainintent1);
         }
 
