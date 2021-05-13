@@ -19,11 +19,19 @@ public class Recipe implements Serializable {
         this.name = name;
     }
 
+    public Recipe(){
+    }
+
     public void addIngredient(Ingredient ingredient){
         this.ingredients.add(ingredient);
     }
 
     public void addPreparation(Preparation preparation){
         this.preparations.add(preparation);
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

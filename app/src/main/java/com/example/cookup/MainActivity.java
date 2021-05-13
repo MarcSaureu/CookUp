@@ -14,6 +14,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.cookup.Logic.Ingredient;
+import com.example.cookup.Logic.Preparation;
 import com.example.cookup.Logic.Recipe;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -23,6 +25,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -40,23 +43,39 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         Intent intent = getIntent();
-        recipes.addAll((ArrayList<Recipe>) intent.getSerializableExtra("recipes"));
-
-        if(recipes.size() == 0){
+        if(intent.hasExtra("recipes")){
+            recipes.addAll((ArrayList<Recipe>) intent.getSerializableExtra("recipes"));
+        }else {
             FirebaseFirestore db = FirebaseFirestore.getInstance();
             db.collection("recipes").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
                     if(task.isSuccessful()){
                         for(QueryDocumentSnapshot document : task.getResult()){
-                            recipes.add(document.toObject(Recipe.class));
+                            Recipe recipe = new Recipe(document.get("name").toString());
+                            recipe.setDishtype(document.get("dishtype").toString());
+                            recipe.setFoodtype(document.get("foodtype").toString());
+                            recipe.setDescription(document.get("description").toString());
+                            recipe.setServings(Integer.parseInt(document.get("servings").toString()));
+                            ArrayList<Ingredient> ingrlist = new ArrayList<>();
+                            ArrayList<Preparation> preplist = new ArrayList<>();
+                            ingrlist.addAll((ArrayList<Ingredient>) document.get("ingredients"));
+                            preplist.addAll((ArrayList<Preparation>) document.get("preparations"));
+                            recipe.setIngredients(ingrlist);
+                            recipe.setPreparations(preplist);
+                            recipes.add(recipe);
+                            rec.add(recipe.toString());
+                            LoadRecipeAdapter();
                         }
                     }
                 }
             });
         }
 
+        Recipe = findViewById(R.id.RecipeList);
 
+        recipeadapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1 , rec);
+        Recipe.setAdapter(recipeadapter);
 
         Button home = findViewById(R.id.HomeButton);
         Button search = findViewById(R.id.SearchButton);
@@ -67,13 +86,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         search.setOnClickListener(this);
         addR.setOnClickListener(this);
         profile.setOnClickListener(this);
+    }
 
-        Recipe = findViewById(R.id.RecipeList);
-
+    public void LoadRecipeAdapter(){
         recipeadapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1 , rec);
         Recipe.setAdapter(recipeadapter);
     }
-
     @Override
     public void onClick(View v) {
         switch(v.getId()){
