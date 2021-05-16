@@ -52,20 +52,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
                     if(task.isSuccessful()){
                         for(QueryDocumentSnapshot document : task.getResult()){
-                            Recipe recipe = new Recipe(document.get("name").toString());
-                            recipe.setDishtype(document.get("dishtype").toString());
-                            recipe.setFoodtype(document.get("foodtype").toString());
-                            recipe.setDescription(document.get("description").toString());
-                            recipe.setServings(Integer.parseInt(document.get("servings").toString()));
-                            ArrayList<Ingredient> ingrlist = new ArrayList<>();
-                            ArrayList<Preparation> preplist = new ArrayList<>();
-                            ingrlist.addAll((ArrayList<Ingredient>) document.get("ingredients"));
-                            preplist.addAll((ArrayList<Preparation>) document.get("preparations"));
-                            recipe.setIngredients(ingrlist);
-                            recipe.setPreparations(preplist);
-                            recipes.add(recipe);
-                            rec.add(recipe.toString());
-                            LoadRecipeAdapter();
+                            createRecipefromDocument(document);
                         }
                     }
                 }
@@ -86,6 +73,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         search.setOnClickListener(this);
         addR.setOnClickListener(this);
         profile.setOnClickListener(this);
+    }
+
+    public void createRecipefromDocument(QueryDocumentSnapshot document){
+        Recipe recipe = new Recipe(document.get("name").toString());
+        recipe.setDishtype(document.get("dishtype").toString());
+        recipe.setFoodtype(document.get("foodtype").toString());
+        recipe.setDescription(document.get("description").toString());
+        recipe.setServings(Integer.parseInt(document.get("servings").toString()));
+        ArrayList<Ingredient> ingrlist = new ArrayList<>();
+        ArrayList<Preparation> preplist = new ArrayList<>();
+        ingrlist.addAll((ArrayList<Ingredient>) document.get("ingredients"));
+        preplist.addAll((ArrayList<Preparation>) document.get("preparations"));
+        recipe.setIngredients(ingrlist);
+        recipe.setPreparations(preplist);
+        recipes.add(recipe);
+        rec.add(recipe.toString());
+        LoadRecipeAdapter();
     }
 
     public void LoadRecipeAdapter(){
