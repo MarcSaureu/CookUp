@@ -51,4 +51,6 @@
     <string name="latitud">Latitud</string>
     <string name="longitud">Longitud</string>
     <string name="backButton">Back</string>
+
+    <string name="token">157832773547-ce9s2f9mfk5opcprvvj9rubh00qjqbbt.apps.googleusercontent.com</string>
 </resources>

@@ -18,6 +18,7 @@ import com.example.cookup.Logic.Ingredient;
 import com.example.cookup.Logic.Preparation;
 import com.example.cookup.Logic.Recipe;
 import com.firebase.ui.auth.AuthUI;
+import com.firebase.ui.auth.IdpResponse;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -60,14 +61,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .build();
-        mAuth = FirebaseAuth.getInstance();
+        List<AuthUI.IdpConfig> providers = Arrays.asList(
+                new AuthUI.IdpConfig.EmailBuilder().build(),
+                new AuthUI.IdpConfig.GoogleBuilder().build()
+        );
 
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-
-        signIn();
+        startActivityForResult(
+                AuthUI.getInstance().createSignInIntentBuilder()
+                        .setAvailableProviders(providers)
+                        .build(), 5);
 
         Intent intent = getIntent();
         if(intent.hasExtra("recipes")){
@@ -102,44 +104,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         profile.setOnClickListener(this);
     }
 
-    public void signIn(){
-        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-        startActivityForResult(signInIntent, 1);
-    }
-
     @SneakyThrows
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode,resultCode,data);
-        Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-        if(requestCode == 1){
+        if(requestCode == 5){
+            IdpResponse response = IdpResponse.fromResultIntent(data);
             if(resultCode == RESULT_OK){
-                GoogleSignInAccount account = task.getResult(ApiException.class);
-                firebaseAuthWithGoogle(account.getIdToken());
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                System.out.println("Success");
             }else{
+                System.out.println("Fail");
                 finish();
             }
         }
 
-    }
-
-    private void firebaseAuthWithGoogle(String idToken) {
-        AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
-        mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            //updateUI(user);
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            //updateUI(null);
-                            finish();
-                        }
-                    }
-                });
     }
 
     public void createRecipefromDocument(QueryDocumentSnapshot document){
