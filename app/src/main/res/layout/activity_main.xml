@@ -7,6 +7,7 @@
     tools:context=".MainActivity">
 
 
+
     <LinearLayout
         android:id="@+id/MainLayout"
         android:layout_width="match_parent"
@@ -44,62 +45,16 @@
         <ListView
             android:id="@+id/RecipeList"
             android:layout_width="match_parent"
-            android:layout_height="508dp"/>
-
-        <LinearLayout
-            android:id="@+id/ButtonLayout"
-            android:layout_width="match_parent"
-            android:layout_height="75dp"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/HomeButton"
-                android:layout_width="98dp"
-                android:layout_height="75dp"
-                android:backgroundTint="@color/white"
-                android:insetTop="0dp"
-                android:insetBottom="0dp"
-                app:icon="?attr/actionModeCloseDrawable"
-                app:strokeColor="@color/black"
-                app:strokeWidth="1dp" />
-
-            <Button
-                android:id="@+id/SearchButton"
-                android:layout_width="98dp"
-                android:layout_height="75dp"
-                android:backgroundTint="@color/white"
-                android:insetTop="0dp"
-                android:insetBottom="0dp"
-                app:icon="@android:drawable/ic_menu_search"
-                app:strokeColor="@color/black"
-                app:strokeWidth="1dp" />
-
-            <Button
-                android:id="@+id/AddRecipeButton"
-                android:layout_width="98dp"
-                android:layout_height="75dp"
-                android:backgroundTint="@color/white"
-                android:insetTop="0dp"
-                android:insetBottom="0dp"
-                app:icon="@android:drawable/ic_menu_add"
-                app:strokeColor="@color/black"
-                app:strokeWidth="1dp" />
-
-            <Button
-                android:id="@+id/ProfileButton"
-                android:layout_width="98dp"
-                android:layout_height="75dp"
-                android:backgroundTint="@color/white"
-                android:insetTop="0dp"
-                android:insetBottom="0dp"
-                app:icon="@android:drawable/ic_menu_preferences"
-                app:strokeColor="@color/black"
-                app:strokeWidth="1dp" />
-
-        </LinearLayout>
+            android:layout_height="535dp"/>
 
     </LinearLayout>
 
-
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="0dp"
+        app:menu="@menu/bottom_navigation_menu" />
 
 </RelativeLayout>

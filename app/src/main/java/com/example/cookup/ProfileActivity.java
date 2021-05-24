@@ -8,12 +8,14 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class ProfileActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -25,17 +27,8 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        Button home = findViewById(R.id.HomeButton);
-        Button search = findViewById(R.id.SearchButton);
-        Button addR = findViewById(R.id.AddRecipeButton);
-        Button profile = findViewById(R.id.ProfileButton);
-        Button maps = (Button) findViewById(R.id.LocationButton);
-
-        home.setOnClickListener(this);
-        search.setOnClickListener(this);
-        addR.setOnClickListener(this);
-        profile.setOnClickListener(this);
-        maps.setOnClickListener(this);
+        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+        bottomNav.setOnNavigationItemSelectedListener(navListener);
 
     }
 
@@ -64,29 +57,6 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.HomeButton:
-                Intent mainintent = new Intent(ProfileActivity.this, MainActivity.class);
-                startActivity(mainintent);
-                finish();
-                break;
-
-            case R.id.SearchButton:
-                Intent searchintent = new Intent(ProfileActivity.this, AdvancedSearchActivity.class);
-                startActivity(searchintent);
-                finish();
-                break;
-
-            case R.id.AddRecipeButton:
-                Intent addrecipeintent = new Intent(ProfileActivity.this, RecipeActivity.class);
-                startActivity(addrecipeintent);
-                finish();
-                break;
-
-            case R.id.ProfileButton:
-                Intent profileintent = new Intent(ProfileActivity.this, ProfileActivity.class);
-                startActivity(profileintent);
-                finish();
-                break;
 
             case R.id.LocationButton:
                 Intent locationIntent = new Intent(ProfileActivity.this, MapsActivity.class);
@@ -94,6 +64,35 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                 break;
         }
     }
+
+    private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.HomeButton:
+                    Intent mainintent = new Intent(ProfileActivity.this, MainActivity.class);
+                    startActivity(mainintent);
+                    finish();
+                    break;
+                case R.id.SearchButton:
+                    Intent searchintent = new Intent(ProfileActivity.this, AdvancedSearchActivity.class);
+                    startActivity(searchintent);
+                    finish();
+                    break;
+                case R.id.AddRecipeButton:
+                    Intent addrecipeintent = new Intent(ProfileActivity.this, RecipeActivity.class);
+                    startActivity(addrecipeintent);
+                    finish();
+                    break;
+                case R.id.ProfileButton:
+                    Intent profileintent = new Intent(ProfileActivity.this, ProfileActivity.class);
+                    startActivity(profileintent);
+                    finish();
+                    break;
+            }
+            return true;
+        }
+    };
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

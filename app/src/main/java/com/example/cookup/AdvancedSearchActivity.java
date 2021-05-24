@@ -8,7 +8,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,9 +17,9 @@ import com.example.cookup.Logic.Preparation;
 import com.example.cookup.Logic.Recipe;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -37,15 +36,8 @@ public class AdvancedSearchActivity extends AppCompatActivity implements View.On
 
         Button advSearch = findViewById(R.id.AdvSearcher_button);
 
-        Button home = findViewById(R.id.HomeButton);
-        Button search = findViewById(R.id.SearchButton);
-        Button addR = findViewById(R.id.AddRecipeButton);
-        Button profile = findViewById(R.id.ProfileButton);
-
-        home.setOnClickListener(this);
-        search.setOnClickListener(this);
-        addR.setOnClickListener(this);
-        profile.setOnClickListener(this);
+        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+        bottomNav.setOnNavigationItemSelectedListener(navListener);
 
         advSearch.setOnClickListener(this);
     }
@@ -53,29 +45,6 @@ public class AdvancedSearchActivity extends AppCompatActivity implements View.On
     @Override
     public void onClick(View v) {
         switch(v.getId()){
-            case R.id.HomeButton:
-                Intent mainintent = new Intent(AdvancedSearchActivity.this, MainActivity.class);
-                startActivity(mainintent);
-                finish();
-                break;
-
-            case R.id.SearchButton:
-                Intent searchintent = new Intent(AdvancedSearchActivity.this, AdvancedSearchActivity.class);
-                startActivity(searchintent);
-                finish();
-                break;
-
-            case R.id.AddRecipeButton:
-                Intent addrecipeintent = new Intent(AdvancedSearchActivity.this, RecipeActivity.class);
-                startActivity(addrecipeintent);
-                finish();
-                break;
-
-            case R.id.ProfileButton:
-                Intent profileintent = new Intent(AdvancedSearchActivity.this, ProfileActivity.class);
-                startActivity(profileintent);
-                finish();
-                break;
 
             case R.id.AdvSearcher_button:
                 EditText nameRecipe = findViewById(R.id.nameRecipesearch);
@@ -125,6 +94,35 @@ public class AdvancedSearchActivity extends AppCompatActivity implements View.On
 
 
     }
+
+    private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.HomeButton:
+                    Intent mainintent = new Intent(AdvancedSearchActivity.this, MainActivity.class);
+                    startActivity(mainintent);
+                    finish();
+                    break;
+                case R.id.SearchButton:
+                    Intent searchintent = new Intent(AdvancedSearchActivity.this, AdvancedSearchActivity.class);
+                    startActivity(searchintent);
+                    finish();
+                    break;
+                case R.id.AddRecipeButton:
+                    Intent addrecipeintent = new Intent(AdvancedSearchActivity.this, RecipeActivity.class);
+                    startActivity(addrecipeintent);
+                    finish();
+                    break;
+                case R.id.ProfileButton:
+                    Intent profileintent = new Intent(AdvancedSearchActivity.this, ProfileActivity.class);
+                    startActivity(profileintent);
+                    finish();
+                    break;
+            }
+            return true;
+        }
+    };
 
     public void createRecipefromDocument(QueryDocumentSnapshot document){
         Recipe recipe = new Recipe(document.get("name").toString());

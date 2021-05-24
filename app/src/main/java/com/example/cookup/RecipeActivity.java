@@ -2,7 +2,6 @@ package com.example.cookup;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -11,7 +10,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,9 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.cookup.Logic.Ingredient;
 import com.example.cookup.Logic.Preparation;
 import com.example.cookup.Logic.Recipe;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.DocumentReference;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -52,15 +48,8 @@ public class RecipeActivity extends AppCompatActivity implements View.OnClickLis
         Button addPreparation = findViewById(R.id.addPreparationButton);
         Button createRecipe = findViewById(R.id.createRecipeButton);
 
-        Button home = findViewById(R.id.HomeButton);
-        Button search = findViewById(R.id.SearchButton);
-        Button addR = findViewById(R.id.AddRecipeButton);
-        Button profile = findViewById(R.id.ProfileButton);
-
-        home.setOnClickListener(this);
-        search.setOnClickListener(this);
-        addR.setOnClickListener(this);
-        profile.setOnClickListener(this);
+        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+        bottomNav.setOnNavigationItemSelectedListener(navListener);
 
         addIngredient.setOnClickListener(this);
         addPreparation.setOnClickListener(this);
@@ -97,33 +86,38 @@ public class RecipeActivity extends AppCompatActivity implements View.OnClickLis
                 startActivity(mainintent2);
                 finish();
                 break;
-
-            case R.id.HomeButton:
-                Intent mainintent = new Intent(RecipeActivity.this, MainActivity.class);
-                startActivity(mainintent);
-                finish();
-                break;
-
-            case R.id.SearchButton:
-                Intent searchintent = new Intent(RecipeActivity.this, AdvancedSearchActivity.class);
-                startActivity(searchintent);
-                finish();
-                break;
-
-            case R.id.AddRecipeButton:
-                Intent addrecipeintent = new Intent(RecipeActivity.this, RecipeActivity.class);
-                startActivity(addrecipeintent);
-                finish();
-                break;
-
-            case R.id.ProfileButton:
-                Intent profileintent = new Intent(RecipeActivity.this, ProfileActivity.class);
-                startActivity(profileintent);
-                finish();
-                break;
         }
 
     }
+
+    private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.HomeButton:
+                    Intent mainintent = new Intent(RecipeActivity.this, MainActivity.class);
+                    startActivity(mainintent);
+                    finish();
+                    break;
+                case R.id.SearchButton:
+                    Intent searchintent = new Intent(RecipeActivity.this, AdvancedSearchActivity.class);
+                    startActivity(searchintent);
+                    finish();
+                    break;
+                case R.id.AddRecipeButton:
+                    Intent addrecipeintent = new Intent(RecipeActivity.this, RecipeActivity.class);
+                    startActivity(addrecipeintent);
+                    finish();
+                    break;
+                case R.id.ProfileButton:
+                    Intent profileintent = new Intent(RecipeActivity.this, ProfileActivity.class);
+                    startActivity(profileintent);
+                    finish();
+                    break;
+            }
+            return true;
+        }
+    };
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode,resultCode,data);
