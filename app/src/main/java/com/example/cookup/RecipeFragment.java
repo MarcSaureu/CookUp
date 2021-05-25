@@ -24,7 +24,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
-public class RecipeFragment extends Fragment {
+public class RecipeFragment extends Fragment implements View.OnClickListener {
 
 
     private ArrayList<Ingredient> ingredients = new ArrayList<>();
@@ -44,41 +44,23 @@ public class RecipeFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
+        View view = inflater.inflate(R.layout.fragment_addrecipe, container, false);
 
         Ingredients = getActivity().findViewById(R.id.IngredientList);
         Preparations = getActivity().findViewById(R.id.PreparationList);
 
-        Button addIngredient = getActivity().findViewById(R.id.addIngredientButton);
-        Button addPreparation = getActivity().findViewById(R.id.addPreparationButton);
-        Button createRecipe = getActivity().findViewById(R.id.createRecipeButton);
+        Button addIngredient = view.findViewById(R.id.addIngredientButton);
+        Button addPreparation = view.findViewById(R.id.addPreparationButton);
+        Button createRecipe = view.findViewById(R.id.createRecipeButton);
 
-        /*
         addIngredient.setOnClickListener(this);
         addPreparation.setOnClickListener(this);
-        createRecipe.setOnClickListener(this);*/
+        createRecipe.setOnClickListener(this);
 
-
-        return inflater.inflate(R.layout.fragment_addrecipe, container, false);
-
-
+        return view;
     }
 
-    /*case R.id.createRecipeButton:
-                FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-                Recipe recipe = createRecipeWithValues();
-                for(Ingredient ingredient: ingredients){
-                    recipe.addIngredient((ingredient));
-                }
-                for(Preparation preparation: preparations){
-                    recipe.addPreparation(preparation);
-                }
-                addRecipeToFirebase(recipe,db);
-                //Guardar a Firebase
-                Intent mainintent2 = new Intent(RecipeActivity.this, MainActivity.class);
-                startActivity(mainintent2);
-                finish();
-                break;*/
+    /**/
 
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode,resultCode,data);
@@ -152,5 +134,32 @@ public class RecipeFragment extends Fragment {
 
     private void addRecipeToFirebase(Recipe recipe , FirebaseFirestore db){
         db.collection("recipes").document(recipe.getName()).set(recipe);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.addIngredientButton:
+                Intent ingintent = new Intent(getActivity(), IngredientActivity.class);
+                startActivityForResult(ingintent, 2);
+                break;
+
+            case R.id.addPreparationButton:
+                Intent prepintent = new Intent(getActivity(), PreparationActivity.class);
+                startActivityForResult(prepintent, 3);
+                break;
+
+            case R.id.createRecipeButton:
+                Recipe recipe = createRecipeWithValues();
+                for (Ingredient ingredient : ingredients) {
+                    recipe.addIngredient((ingredient));
+                }
+                for (Preparation preparation : preparations) {
+                    recipe.addPreparation(preparation);
+                }
+                //Guardar a Firebase
+                getActivity().finish();
+                break;
+        }
     }
 }

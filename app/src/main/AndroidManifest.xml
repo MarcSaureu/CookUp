@@ -26,8 +26,6 @@
         </activity>
         <activity android:name=".PreparationActivity" />
         <activity android:name=".IngredientActivity" />
-        <activity android:name=".RecipeActivity" />
-        <activity android:name=".AdvancedSearchActivity" />
         <activity android:name=".RecipeViewActivity" />
         <activity
             android:name=".MapsActivity"

@@ -49,6 +49,8 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+
         Intent intent = getActivity().getIntent();
         if(intent.hasExtra("recipes")){
             recipes.addAll((ArrayList<Recipe>) intent.getSerializableExtra("recipes"));
@@ -67,13 +69,13 @@ public class HomeFragment extends Fragment {
 
         }
 
-        //Recipe = getActivity().findViewById(R.id.RecipeList);
+        Recipe = view.findViewById(R.id.RecipeList);
 
-        //recipeadapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1 , rec);
-       // Recipe.setAdapter(recipeadapter);
+        recipeadapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1 , rec);
+        Recipe.setAdapter(recipeadapter);
 
 
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        return view;
     }
 
     @SneakyThrows

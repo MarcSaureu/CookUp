@@ -8,6 +8,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
@@ -36,10 +37,12 @@ public class AdvancedSearchFragment extends Fragment implements View.OnClickList
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        //Button advSearch = getActivity().findViewById(R.id.AdvSearcher_button);
-        //advSearch.setOnClickListener(this);
+        View view = inflater.inflate(R.layout.fragment_adv_search, container, false);
 
-        return inflater.inflate(R.layout.fragment_adv_search, container, false);
+        Button advSearch = view.findViewById(R.id.AdvSearcher_button);
+        advSearch.setOnClickListener(this);
+
+        return view;
     }
 
     @Override

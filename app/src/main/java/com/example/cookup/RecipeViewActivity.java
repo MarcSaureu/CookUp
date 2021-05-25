@@ -94,8 +94,8 @@ public class RecipeViewActivity extends AppCompatActivity {
                     finish();
                     break;
                 case R.id.AddRecipeButton:
-                    Intent addrecipeintent = new Intent(RecipeViewActivity.this, RecipeActivity.class);
-                    startActivity(addrecipeintent);
+                    //Intent addrecipeintent = new Intent(RecipeViewActivity.this, );
+                    //startActivity(addrecipeintent);
                     finish();
                     break;
                 case R.id.ProfileButton:
