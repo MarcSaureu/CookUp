@@ -2,16 +2,20 @@ package com.example.cookup;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.example.cookup.Logic.Ingredient;
 import com.example.cookup.Logic.Preparation;
@@ -20,7 +24,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
-public class RecipeActivity extends AppCompatActivity implements View.OnClickListener {
+public class RecipeFragment extends Fragment {
+
 
     private ArrayList<Ingredient> ingredients = new ArrayList<>();
     private ArrayList<Preparation> preparations = new ArrayList<>();
@@ -34,40 +39,31 @@ public class RecipeActivity extends AppCompatActivity implements View.OnClickLis
     ArrayAdapter<String> ingradapter;
     ArrayAdapter<String> prepadapter;
 
+
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_addrecipe);
-
-        Ingredients = findViewById(R.id.IngredientList);
-        Preparations = findViewById(R.id.PreparationList);
-
-        Button addIngredient = findViewById(R.id.addIngredientButton);
-        Button addPreparation = findViewById(R.id.addPreparationButton);
-        Button createRecipe = findViewById(R.id.createRecipeButton);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
 
+        Ingredients = getActivity().findViewById(R.id.IngredientList);
+        Preparations = getActivity().findViewById(R.id.PreparationList);
 
+        Button addIngredient = getActivity().findViewById(R.id.addIngredientButton);
+        Button addPreparation = getActivity().findViewById(R.id.addPreparationButton);
+        Button createRecipe = getActivity().findViewById(R.id.createRecipeButton);
+
+        /*
         addIngredient.setOnClickListener(this);
         addPreparation.setOnClickListener(this);
-        createRecipe.setOnClickListener(this);
+        createRecipe.setOnClickListener(this);*/
+
+
+        return inflater.inflate(R.layout.fragment_addrecipe, container, false);
+
+
     }
 
-
-    @Override
-    public void onClick(View v) {
-        switch(v.getId()){
-            case R.id.addIngredientButton:
-                Intent ingintent = new Intent(RecipeActivity.this, IngredientActivity.class);
-                startActivityForResult(ingintent,2);
-                break;
-
-            case R.id.addPreparationButton:
-                Intent prepintent = new Intent(RecipeActivity.this, PreparationActivity.class);
-                startActivityForResult(prepintent,3);
-                break;
-
-            case R.id.createRecipeButton:
+    /*case R.id.createRecipeButton:
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
 
                 Recipe recipe = createRecipeWithValues();
@@ -82,23 +78,19 @@ public class RecipeActivity extends AppCompatActivity implements View.OnClickLis
                 Intent mainintent2 = new Intent(RecipeActivity.this, MainActivity.class);
                 startActivity(mainintent2);
                 finish();
-                break;
-        }
+                break;*/
 
-    }
-
-
-    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode,resultCode,data);
         if(requestCode == 2){
-            if(resultCode == RESULT_OK){
+            if(resultCode == getActivity().RESULT_OK){
                 Ingredient ingredient = (Ingredient) data.getSerializableExtra("ingredient");
                 ingredients.add(ingredient);
                 ingr.add(ingredient.toString());
                 LoadAdapterIngredients();
             }
         }else if(requestCode == 3){
-            if(resultCode == RESULT_OK){
+            if(resultCode == getActivity().RESULT_OK){
                 Preparation preparation =(Preparation) data.getSerializableExtra("preparation");
                 preparations.add(preparation);
                 prep.add(preparation.toString());
@@ -108,21 +100,21 @@ public class RecipeActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     public void LoadAdapterIngredients(){
-        ingradapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1 , ingr);
+        ingradapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1 , ingr);
         Ingredients.setAdapter(ingradapter);
     }
 
     public void LoadAdapterPreparations(){
-        prepadapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, prep);
+        prepadapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, prep);
         Preparations.setAdapter(prepadapter);
     }
 
     public Recipe createRecipeWithValues(){
-        EditText nameRecipe = findViewById(R.id.nameRecipe);
-        EditText foodtype = findViewById(R.id.foodtype);
-        EditText dishtype = findViewById(R.id.dishtype);
-        EditText description = findViewById(R.id.description);
-        EditText servings = findViewById(R.id.servings);
+        EditText nameRecipe = getActivity().findViewById(R.id.nameRecipe);
+        EditText foodtype = getActivity().findViewById(R.id.foodtype);
+        EditText dishtype = getActivity().findViewById(R.id.dishtype);
+        EditText description = getActivity().findViewById(R.id.description);
+        EditText servings = getActivity().findViewById(R.id.servings);
 
         String name = nameRecipe.getText().toString();
         String food = foodtype.getText().toString();
@@ -139,9 +131,8 @@ public class RecipeActivity extends AppCompatActivity implements View.OnClickLis
         return recipe;
     }
 
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
+        MenuInflater inflater = getActivity().getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
         return true;
     }
@@ -151,7 +142,7 @@ public class RecipeActivity extends AppCompatActivity implements View.OnClickLis
         switch (item.getItemId()) {
 
             case R.id.config:
-                startActivity(new Intent(this, com.example.cookup.preferences.PreferencesActivity.class));
+                startActivity(new Intent(getActivity(), com.example.cookup.preferences.PreferencesActivity.class));
                 return true;
 
             default:

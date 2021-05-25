@@ -89,8 +89,8 @@ public class RecipeViewActivity extends AppCompatActivity {
                     finish();
                     break;
                 case R.id.SearchButton:
-                    Intent searchintent = new Intent(RecipeViewActivity.this, AdvancedSearchActivity.class);
-                    startActivity(searchintent);
+                    //Intent searchintent = new Intent(RecipeViewActivity.this, AdvancedSearchActivity.class);
+                    //startActivity(searchintent);
                     finish();
                     break;
                 case R.id.AddRecipeButton:
@@ -99,8 +99,8 @@ public class RecipeViewActivity extends AppCompatActivity {
                     finish();
                     break;
                 case R.id.ProfileButton:
-                    Intent profileintent = new Intent(RecipeViewActivity.this, ProfileActivity.class);
-                    startActivity(profileintent);
+                  //  Intent profileintent = new Intent(RecipeViewActivity.this, ProfileActivity.class);
+                    //startActivity(profileintent);
                     finish();
                     break;
             }

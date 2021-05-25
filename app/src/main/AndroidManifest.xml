@@ -16,7 +16,6 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name=".ProfileActivity" />
         <activity android:name=".preferences.PreferencesActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

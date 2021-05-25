@@ -2,22 +2,23 @@ package com.example.cookup;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.view.ViewGroup;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.example.cookup.Logic.Ingredient;
 import com.example.cookup.Logic.Preparation;
 import com.example.cookup.Logic.Recipe;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -25,21 +26,20 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
-public class AdvancedSearchActivity extends AppCompatActivity implements View.OnClickListener {
+public class AdvancedSearchFragment extends Fragment implements View.OnClickListener {
 
     private ArrayList<Recipe> recipes = new ArrayList<>();
 
+
+
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_adv_search);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        Button advSearch = findViewById(R.id.AdvSearcher_button);
+        //Button advSearch = getActivity().findViewById(R.id.AdvSearcher_button);
+        //advSearch.setOnClickListener(this);
 
-        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
-        bottomNav.setOnNavigationItemSelectedListener(navListener);
-
-        advSearch.setOnClickListener(this);
+        return inflater.inflate(R.layout.fragment_adv_search, container, false);
     }
 
     @Override
@@ -47,9 +47,9 @@ public class AdvancedSearchActivity extends AppCompatActivity implements View.On
         switch(v.getId()){
 
             case R.id.AdvSearcher_button:
-                EditText nameRecipe = findViewById(R.id.nameRecipesearch);
-                EditText foodtype = findViewById(R.id.foodtypesearch);
-                EditText dishtype = findViewById(R.id.dishtypesearch);
+                EditText nameRecipe = getActivity().findViewById(R.id.nameRecipesearch);
+                EditText foodtype = getActivity().findViewById(R.id.foodtypesearch);
+                EditText dishtype = getActivity().findViewById(R.id.dishtypesearch);
 
                 String name = nameRecipe.getText().toString();
                 String food = foodtype.getText().toString();
@@ -59,7 +59,7 @@ public class AdvancedSearchActivity extends AppCompatActivity implements View.On
 
                 if(name.isEmpty() && food.isEmpty() && dish.isEmpty()){
                     //Retornar la view amb totes les receptes // Crida a la Main Activity Normal on ella fara la crida a FireBase per obtindre les receptes
-                    Intent mainintent1 = new Intent(AdvancedSearchActivity.this, MainActivity.class);
+                    Intent mainintent1 = new Intent(getActivity(), MainActivity.class);
                     startActivity(mainintent1);
                 }
                 //En altres casos crida a la Main Activity amb la query obtinguda per FireBase amb les receptes a mostrar
@@ -87,7 +87,7 @@ public class AdvancedSearchActivity extends AppCompatActivity implements View.On
                         }
                     }
                 });
-                Intent mainintent1 = new Intent(AdvancedSearchActivity.this, MainActivity.class);
+                Intent mainintent1 = new Intent(getActivity(), MainActivity.class);
                 mainintent1.putExtra("recipes", recipes);//Afegir el result de la query de Firebase
                 startActivity(mainintent1);
         }
@@ -95,34 +95,6 @@ public class AdvancedSearchActivity extends AppCompatActivity implements View.On
 
     }
 
-    private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.HomeButton:
-                    Intent mainintent = new Intent(AdvancedSearchActivity.this, MainActivity.class);
-                    startActivity(mainintent);
-                    finish();
-                    break;
-                case R.id.SearchButton:
-                    Intent searchintent = new Intent(AdvancedSearchActivity.this, AdvancedSearchActivity.class);
-                    startActivity(searchintent);
-                    finish();
-                    break;
-                case R.id.AddRecipeButton:
-                    Intent addrecipeintent = new Intent(AdvancedSearchActivity.this, RecipeActivity.class);
-                    startActivity(addrecipeintent);
-                    finish();
-                    break;
-                case R.id.ProfileButton:
-                    Intent profileintent = new Intent(AdvancedSearchActivity.this, ProfileActivity.class);
-                    startActivity(profileintent);
-                    finish();
-                    break;
-            }
-            return true;
-        }
-    };
 
     public void createRecipefromDocument(QueryDocumentSnapshot document){
         Recipe recipe = new Recipe(document.get("name").toString());
@@ -139,9 +111,8 @@ public class AdvancedSearchActivity extends AppCompatActivity implements View.On
         recipes.add(recipe);
     }
 
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
+        MenuInflater inflater = getActivity().getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
         return true;
     }
@@ -151,7 +122,7 @@ public class AdvancedSearchActivity extends AppCompatActivity implements View.On
         switch (item.getItemId()) {
 
             case R.id.config:
-                startActivity(new Intent(this, com.example.cookup.preferences.PreferencesActivity.class));
+                startActivity(new Intent(getActivity(), com.example.cookup.preferences.PreferencesActivity.class));
                 return true;
 
             default:
