@@ -10,7 +10,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.firebase.ui.auth.AuthUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        /*List<AuthUI.IdpConfig> providers = Arrays.asList(
+        List<AuthUI.IdpConfig> providers = Arrays.asList(
                 new AuthUI.IdpConfig.EmailBuilder().build(),
                 new AuthUI.IdpConfig.GoogleBuilder().build()
         );
@@ -30,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(
                 AuthUI.getInstance().createSignInIntentBuilder()
                         .setAvailableProviders(providers)
-                        .build(), 5);*/
+                        .build(), 5);
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,  new HomeFragment()).commit();
 
