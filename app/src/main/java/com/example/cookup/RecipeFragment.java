@@ -33,6 +33,8 @@ public class RecipeFragment extends Fragment implements View.OnClickListener {
     private ArrayList<String> ingr = new ArrayList<>();
     private ArrayList<String> prep = new ArrayList<>();
 
+    View view;
+
     ListView Ingredients;
     ListView Preparations;
 
@@ -44,10 +46,10 @@ public class RecipeFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_addrecipe, container, false);
+        view = inflater.inflate(R.layout.fragment_addrecipe, container, false);
 
-        Ingredients = getActivity().findViewById(R.id.IngredientList);
-        Preparations = getActivity().findViewById(R.id.PreparationList);
+        Ingredients = view.findViewById(R.id.IngredientList);
+        Preparations = view.findViewById(R.id.PreparationList);
 
         Button addIngredient = view.findViewById(R.id.addIngredientButton);
         Button addPreparation = view.findViewById(R.id.addPreparationButton);
@@ -92,11 +94,11 @@ public class RecipeFragment extends Fragment implements View.OnClickListener {
     }
 
     public Recipe createRecipeWithValues(){
-        EditText nameRecipe = getActivity().findViewById(R.id.nameRecipe);
-        EditText foodtype = getActivity().findViewById(R.id.foodtype);
-        EditText dishtype = getActivity().findViewById(R.id.dishtype);
-        EditText description = getActivity().findViewById(R.id.description);
-        EditText servings = getActivity().findViewById(R.id.servings);
+        EditText nameRecipe = view.findViewById(R.id.nameRecipe);
+        EditText foodtype = view.findViewById(R.id.foodtype);
+        EditText dishtype = view.findViewById(R.id.dishtype);
+        EditText description = view.findViewById(R.id.description);
+        EditText servings = view.findViewById(R.id.servings);
 
         String name = nameRecipe.getText().toString();
         String food = foodtype.getText().toString();
@@ -150,6 +152,7 @@ public class RecipeFragment extends Fragment implements View.OnClickListener {
                 break;
 
             case R.id.createRecipeButton:
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
                 Recipe recipe = createRecipeWithValues();
                 for (Ingredient ingredient : ingredients) {
                     recipe.addIngredient((ingredient));
@@ -157,8 +160,10 @@ public class RecipeFragment extends Fragment implements View.OnClickListener {
                 for (Preparation preparation : preparations) {
                     recipe.addPreparation(preparation);
                 }
+                addRecipeToFirebase(recipe,db);
                 //Guardar a Firebase
-                getActivity().finish();
+                //getActivity().finish();
+                //Tornar al fragment principal per seguir treballant i veure que la recepta es creada
                 break;
         }
     }
