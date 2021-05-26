@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.cookup.Logic.Enums.Type;
 import com.example.cookup.Logic.Ingredient;
 import com.example.cookup.Logic.Preparation;
 import com.example.cookup.Logic.Recipe;
@@ -26,6 +27,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class AdvancedSearchFragment extends Fragment implements View.OnClickListener {
 
@@ -107,11 +109,32 @@ public class AdvancedSearchFragment extends Fragment implements View.OnClickList
         recipe.setServings(Integer.parseInt(document.get("servings").toString()));
         ArrayList<Ingredient> ingrlist = new ArrayList<>();
         ArrayList<Preparation> preplist = new ArrayList<>();
-        ingrlist.addAll((ArrayList<Ingredient>) document.get("ingredients"));
-        preplist.addAll((ArrayList<Preparation>) document.get("preparations"));
+        ArrayList<Map<String, Object>> ingr = (ArrayList<Map<String, Object>>) document.get("ingredients");
+        ArrayList<Map<String, Object>> prep = (ArrayList<Map<String, Object>>) document.get("preparations");
+        for(int i = 0; i < ingr.size(); i++){
+            Ingredient ingredient = new Ingredient(ingr.get(i).get("ingredient").toString(), Integer.parseInt(ingr.get(i).get("amount").toString()),setType(ingr.get(i).get("type").toString()));
+            System.out.println(ingredient);
+            ingrlist.add(ingredient);
+        }
+        for(int i = 0; i < prep.size(); i++){
+            Preparation preparation = new Preparation(prep.get(i).get("pass").toString());
+            preplist.add(preparation);
+        }
         recipe.setIngredients(ingrlist);
         recipe.setPreparations(preplist);
         recipes.add(recipe);
+    }
+
+    public Type setType(String type){
+        if(type.equals(Type.cuchara_sopera.toString())){
+            return Type.cuchara_sopera;
+        }else if(type.equals(Type.cucharilla.toString())){
+            return Type.cucharilla;
+        }else if(type.equals(Type.gr.toString())){
+            return Type.gr;
+        }else{
+            return Type.ml;
+        }
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
