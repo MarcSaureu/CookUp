@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -73,6 +74,19 @@ public class HomeFragment extends Fragment {
 
         recipeadapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1 , rec);
         Recipe.setAdapter(recipeadapter);
+
+        Recipe.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Recipe recipe = recipes.get(position);
+
+                System.out.println(recipe.getServings());
+
+                Intent i = new Intent(getActivity(),RecipeViewActivity.class);
+                i.putExtra("recipe", recipe);
+                startActivity(i);
+            }
+        });
 
 
         return view;

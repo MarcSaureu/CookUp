@@ -18,6 +18,7 @@ import com.example.cookup.Logic.Recipe;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class RecipeViewActivity extends AppCompatActivity {
 
@@ -29,6 +30,9 @@ public class RecipeViewActivity extends AppCompatActivity {
 
     ArrayAdapter<String> ingradapter;
     ArrayAdapter<String> prepadapter;
+
+    ArrayList<Ingredient> ingrlist = new ArrayList<>();
+    ArrayList<Preparation> preplist = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,16 +54,23 @@ public class RecipeViewActivity extends AppCompatActivity {
         TextView food = findViewById(R.id.RecipeFoodView);
         TextView desc = findViewById(R.id.RecipeDescriptionView);
 
-        for(Ingredient ingredient: recipe.getIngredients()){
+        ingrlist = recipe.getIngredients();
+        preplist = recipe.getPreparations();
+
+
+        for(int i = 0; i < ingrlist.size(); i++){
+            Ingredient ingredient = new Ingredient(ingrlist.get(i).getIngredient(),ingrlist.get(i).getAmount(),ingrlist.get(i).getType());
             ingr.add(ingredient.toString());
         }
 
-        for(Preparation preparation: recipe.getPreparations()){
+        for(int i = 0; i < preplist.size(); i++){
+            Preparation preparation = new Preparation(preplist.get(i).getPass());
             prep.add(preparation.toString());
         }
 
+
         name.setText(recipe.getName());
-        serv.setText(recipe.getServings());
+        serv.setText(String.valueOf(recipe.getServings()));
         dish.setText(recipe.getDishtype());
         food.setText(recipe.getFoodtype());
         desc.setText(recipe.getDescription());
