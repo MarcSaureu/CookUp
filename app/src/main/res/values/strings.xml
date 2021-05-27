@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">CookUp</string>
     <string name="searcher">Buscar</string>
+    <string name="preparesearcher">Preparar Busqueda</string>
     <string name="search_bar">Escriu per buscar</string>
     <string name="nameRecipe">Nom de la Recepta</string>
     <string name="dishtype">Tipus de Menjada</string>
@@ -56,4 +57,13 @@
     <string name="profile">Perfil</string>
     <string name="addRecipe">Nova Recepta</string>
     <string name="home">Home</string>
+
+    <string name="nameview">Name</string>
+    <string name="servingview">Servings</string>
+    <string name="dishview">Dish</string>
+    <string name="foodview">Food</string>
+    <string name="descriptionview">Description</string>
+    <string name="ingredientsview">Ingredients</string>
+    <string name="preparationsview">Preparations</string>
+
 </resources>

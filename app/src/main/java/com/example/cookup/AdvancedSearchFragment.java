@@ -23,35 +23,45 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
+
+import lombok.SneakyThrows;
 
 public class AdvancedSearchFragment extends Fragment implements View.OnClickListener {
 
     private ArrayList<Recipe> recipes = new ArrayList<>();
-
+    View view;
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_adv_search, container, false);
+        view = inflater.inflate(R.layout.fragment_adv_search, container, false);
 
+        Button advSearchprepare = view.findViewById(R.id.AdvSearcherPrepare_button);
         Button advSearch = view.findViewById(R.id.AdvSearcher_button);
+        advSearchprepare.setOnClickListener(this);
         advSearch.setOnClickListener(this);
 
         return view;
     }
 
+    @SneakyThrows
     @Override
     public void onClick(View v) {
         switch(v.getId()){
-
-            case R.id.AdvSearcher_button:
+            case R.id.AdvSearcherPrepare_button:
                 EditText nameRecipe = getActivity().findViewById(R.id.nameRecipesearch);
                 EditText foodtype = getActivity().findViewById(R.id.foodtypesearch);
                 EditText dishtype = getActivity().findViewById(R.id.dishtypesearch);
@@ -59,45 +69,112 @@ public class AdvancedSearchFragment extends Fragment implements View.OnClickList
                 String name = nameRecipe.getText().toString();
                 String food = foodtype.getText().toString();
                 String dish = dishtype.getText().toString();
-
-                //Buscar la recepta a firebase utilitzant aquestos valors si estan definits
-
-                if(name.isEmpty() && food.isEmpty() && dish.isEmpty()){
-                    //Retornar la view amb totes les receptes // Crida a la Main Activity Normal on ella fara la crida a FireBase per obtindre les receptes
-                    Intent mainintent1 = new Intent(getActivity(), MainActivity.class);
-                    startActivity(mainintent1);
-                }
                 //En altres casos crida a la Main Activity amb la query obtinguda per FireBase amb les receptes a mostrar
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-                CollectionReference recipecollection = db.collection("recipes");
-
-                if(!name.isEmpty()){
-                    recipecollection.whereEqualTo("name", name);
-                }
-                if(!food.isEmpty()){
-                    recipecollection.whereEqualTo("foodtype", food);
-                }
-                if(!dish.isEmpty()){
-                    recipecollection.whereEqualTo("dishtype", dish);
-                }
-
-                recipecollection.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if(task.isSuccessful()){
-                            for(QueryDocumentSnapshot document : task.getResult()){
-                                createRecipefromDocument(document);
+                if(name.isEmpty() && food.isEmpty() && dish.isEmpty()){
+                    db.collection("recipes").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if(task.isSuccessful()){
+                                for(QueryDocumentSnapshot document : task.getResult()){
+                                    createRecipefromDocument(document);
+                                    System.out.println(1);
+                                }
                             }
                         }
-                    }
-                });
-                Intent mainintent1 = new Intent(getActivity(), MainActivity.class);
+                    });
+                }else if(food.isEmpty() && dish.isEmpty()){
+                    db.collection("recipes").whereEqualTo("name", name).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if(task.isSuccessful()){
+                                for(QueryDocumentSnapshot document : task.getResult()){
+                                    createRecipefromDocument(document);
+                                    System.out.println(1);
+                                }
+                            }
+                        }
+                    });
+                }else if(name.isEmpty() && dish.isEmpty()){
+                    db.collection("recipes").whereEqualTo("food", food).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()){
+                                for(QueryDocumentSnapshot document : task.getResult()){
+                                    createRecipefromDocument(document);
+                                    System.out.println(1);
+                                }
+                            }
+                        }
+                    });
+                }else if(name.isEmpty() && food.isEmpty()){
+                    db.collection("recipes").whereEqualTo("dish", dish).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()){
+                                for(QueryDocumentSnapshot document : task.getResult()){
+                                    createRecipefromDocument(document);
+                                    System.out.println(1);
+                                }
+                            }
+                        }
+                    });
+                }else if(name.isEmpty()){
+                    db.collection("recipes").whereEqualTo("food", food).whereEqualTo("dish", dish).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if(task.isSuccessful()){
+                                for(QueryDocumentSnapshot document : task.getResult()){
+                                    createRecipefromDocument(document);
+                                    System.out.println(1);
+                                }
+                            }
+                        }
+                    });
+                }else if(food.isEmpty()){
+                    db.collection("recipes").whereEqualTo("name", name).whereEqualTo("dish", dish).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if(task.isSuccessful()){
+                                for(QueryDocumentSnapshot document : task.getResult()){
+                                    createRecipefromDocument(document);
+                                    System.out.println(1);
+                                }
+                            }
+                        }
+                    });
+                }else if(dish.isEmpty()){
+                    db.collection("recipes").whereEqualTo("name", name).whereEqualTo("food", food).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if(task.isSuccessful()){
+                                for(QueryDocumentSnapshot document : task.getResult()){
+                                    createRecipefromDocument(document);
+                                    System.out.println(1);
+                                }
+                            }
+                        }
+                    });
+                }else{
+                    db.collection("recipes").whereEqualTo("name", name).whereEqualTo("food", food).whereEqualTo("dish", dish).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if(task.isSuccessful()){
+                                for(QueryDocumentSnapshot document : task.getResult()){
+                                    createRecipefromDocument(document);
+                                    System.out.println(1);
+                                }
+                            }
+                        }
+                    });
+                }
+                break;
+            case R.id.AdvSearcher_button:
+                Intent mainintent1 = new Intent(getActivity(), AdvancedSearchResultActivity.class);
                 mainintent1.putExtra("recipes", recipes);//Afegir el result de la query de Firebase
                 startActivity(mainintent1);
         }
-
-
     }
 
 
@@ -113,7 +190,6 @@ public class AdvancedSearchFragment extends Fragment implements View.OnClickList
         ArrayList<Map<String, Object>> prep = (ArrayList<Map<String, Object>>) document.get("preparations");
         for(int i = 0; i < ingr.size(); i++){
             Ingredient ingredient = new Ingredient(ingr.get(i).get("ingredient").toString(), Integer.parseInt(ingr.get(i).get("amount").toString()),setType(ingr.get(i).get("type").toString()));
-            System.out.println(ingredient);
             ingrlist.add(ingredient);
         }
         for(int i = 0; i < prep.size(); i++){

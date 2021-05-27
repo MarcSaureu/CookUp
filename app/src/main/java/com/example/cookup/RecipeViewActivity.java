@@ -9,16 +9,13 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.cookup.Logic.Ingredient;
 import com.example.cookup.Logic.Preparation;
 import com.example.cookup.Logic.Recipe;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class RecipeViewActivity extends AppCompatActivity {
 
@@ -38,9 +35,6 @@ public class RecipeViewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_view);
-
-        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
-        bottomNav.setOnNavigationItemSelectedListener(navListener);
 
         Intent intent = getIntent();
         Recipe recipe = (Recipe) intent.getSerializableExtra("recipe");
@@ -89,35 +83,6 @@ public class RecipeViewActivity extends AppCompatActivity {
         prepadapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, prep);
         Preparations.setAdapter(prepadapter);
     }
-
-    private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.HomeButton:
-                    Intent mainintent = new Intent(RecipeViewActivity.this, MainActivity.class);
-                    startActivity(mainintent);
-                    finish();
-                    break;
-                case R.id.SearchButton:
-                    //Intent searchintent = new Intent(RecipeViewActivity.this, AdvancedSearchActivity.class);
-                    //startActivity(searchintent);
-                    finish();
-                    break;
-                case R.id.AddRecipeButton:
-                    //Intent addrecipeintent = new Intent(RecipeViewActivity.this, );
-                    //startActivity(addrecipeintent);
-                    finish();
-                    break;
-                case R.id.ProfileButton:
-                  //  Intent profileintent = new Intent(RecipeViewActivity.this, ProfileActivity.class);
-                    //startActivity(profileintent);
-                    finish();
-                    break;
-            }
-            return true;
-        }
-    };
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

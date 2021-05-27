@@ -55,23 +55,17 @@ public class HomeFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        Intent intent = getActivity().getIntent();
-        if(intent.hasExtra("recipes")){
-            recipes.addAll((ArrayList<Recipe>) intent.getSerializableExtra("recipes"));
-        }else {
-            FirebaseFirestore db = FirebaseFirestore.getInstance();
-            db.collection("recipes").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                    if(task.isSuccessful()){
-                        for(QueryDocumentSnapshot document : task.getResult()){
-                            createRecipefromDocument(document);
-                        }
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("recipes").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    for(QueryDocumentSnapshot document : task.getResult()){
+                        createRecipefromDocument(document);
                     }
                 }
-            });
-
-        }
+            }
+        });
 
         Recipe = view.findViewById(R.id.RecipeList);
 
@@ -82,8 +76,6 @@ public class HomeFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Recipe recipe = recipes.get(position);
-
-                System.out.println(recipe.getServings());
 
                 Intent i = new Intent(getActivity(),RecipeViewActivity.class);
                 i.putExtra("recipe", recipe);
@@ -124,7 +116,6 @@ public class HomeFragment extends Fragment {
         ArrayList<Map<String, Object>> prep = (ArrayList<Map<String, Object>>) document.get("preparations");
         for(int i = 0; i < ingr.size(); i++){
             Ingredient ingredient = new Ingredient(ingr.get(i).get("ingredient").toString(), Integer.parseInt(ingr.get(i).get("amount").toString()),setType(ingr.get(i).get("type").toString()));
-            System.out.println(ingredient);
             ingrlist.add(ingredient);
         }
         for(int i = 0; i < prep.size(); i++){

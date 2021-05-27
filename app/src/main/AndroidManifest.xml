@@ -31,5 +31,6 @@
             android:name=".MapsActivity"
             android:label="@string/app_name" >
         </activity>
+        <activity android:name=".AdvancedSearchResultActivity" />
     </application>
 </manifest>
