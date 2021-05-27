@@ -20,7 +20,6 @@ import androidx.fragment.app.Fragment;
 
 public class ProfileFragment extends Fragment implements View.OnClickListener{
 
-    TextView coord;
 
     @Nullable
     @Override
@@ -44,7 +43,6 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
 
         TextView name = (TextView) getActivity().findViewById(R.id.namedefault);
         TextView email = (TextView) getActivity().findViewById(R.id.emailInput);
-        coord = (TextView) getActivity().findViewById(R.id.coordinates);
 
         SharedPreferences mySharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
 
