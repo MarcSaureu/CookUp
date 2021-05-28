@@ -16,6 +16,8 @@ import android.widget.ListView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.cookup.Logic.Ingredient;
 import com.example.cookup.Logic.Preparation;
@@ -163,8 +165,7 @@ public class RecipeFragment extends Fragment implements View.OnClickListener {
                 addRecipeToFirebase(recipe,db);
                 //Guardar a Firebase
                 //getActivity().finish();
-                //Tornar al fragment principal per seguir treballant i veure que la recepta es creada
-                break;
+                //Toast
         }
     }
 }
