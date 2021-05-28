@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
                 .createSignInIntentBuilder()
                 .setIsSmartLockEnabled(false)
                 .setAvailableProviders(providers)
+                .setLogo(R.drawable.logocookup)
                 .build(), 5);
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,  new HomeFragment()).commit();
