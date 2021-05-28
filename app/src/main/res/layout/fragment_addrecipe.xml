@@ -127,18 +127,18 @@
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="215dp"
+            android:layout_height="195dp"
             android:orientation="horizontal"
             android:layout_marginTop="10dp">
 
             <ListView
                 android:id="@+id/IngredientList"
                 android:layout_width="195dp"
-                android:layout_height="215dp"/>
+                android:layout_height="match_parent"/>
             <ListView
                 android:id="@+id/PreparationList"
                 android:layout_width="195dp"
-                android:layout_height="215dp"/>
+                android:layout_height="match_parent"/>
 
         </LinearLayout>
 
