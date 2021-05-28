@@ -87,23 +87,6 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
-    @SneakyThrows
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data){
-        super.onActivityResult(requestCode,resultCode,data);
-        if(requestCode == 5){
-            IdpResponse response = IdpResponse.fromResultIntent(data);
-            if(resultCode == getActivity().RESULT_OK){
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                System.out.println("Success");
-            }else{
-                System.out.println("Fail");
-                getActivity().finish();
-            }
-        }
-
-    }
-
     public void createRecipefromDocument(QueryDocumentSnapshot document){
         Recipe recipe = new Recipe(document.get("name").toString());
         recipe.setDishtype(document.get("dishtype").toString());
