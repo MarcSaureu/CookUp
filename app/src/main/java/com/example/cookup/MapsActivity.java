@@ -127,7 +127,7 @@ public class MapsActivity extends AppCompatActivity
 
     @Override
     public boolean onMyLocationButtonClick() {
-        Toast.makeText(this, "MyLocation button clicked", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, R.string.mapsCurrentLocation, Toast.LENGTH_SHORT).show();
         return false;
     }
 
@@ -233,6 +233,7 @@ public class MapsActivity extends AppCompatActivity
     @Override
     public void onClick(View v) {
 
+        Toast.makeText(this, "Saved the current latitude and longitude", Toast.LENGTH_LONG).show();
         stopLocationUpdates();
         finish();
 

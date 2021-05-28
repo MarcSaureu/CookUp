@@ -66,4 +66,6 @@
     <string name="ingredientsview">Ingredients</string>
     <string name="preparationsview">Preparations</string>
 
+    <string name="mapsCurrentLocation">Going to current location</string>
+
 </resources>
