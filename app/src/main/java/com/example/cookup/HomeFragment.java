@@ -1,13 +1,16 @@
 package com.example.cookup;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -40,10 +43,6 @@ public class HomeFragment extends Fragment {
     private ArrayList<Recipe> recipes = new ArrayList<>();
 
     private ArrayList<String> rec = new ArrayList<>();
-
-    private GoogleSignInClient mGoogleSignInClient;
-
-    private FirebaseAuth mAuth;
 
     ListView Recipe;
 

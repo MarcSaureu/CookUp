@@ -68,5 +68,6 @@
 
     <string name="mapsCurrentLocation">Going to current location</string>
     <string name="addedFirebase">Recipe added to FireStore</string>
+    <string name="loginfail">Failed to Login</string>
 
 </resources>

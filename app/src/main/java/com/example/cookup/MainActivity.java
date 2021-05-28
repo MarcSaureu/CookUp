@@ -1,11 +1,14 @@
 package com.example.cookup;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,7 +25,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,14 +38,13 @@ public class MainActivity extends AppCompatActivity {
                 new AuthUI.IdpConfig.GoogleBuilder().build()
         );
 
+        mAuth = FirebaseAuth.getInstance();
         startActivityForResult(AuthUI.getInstance()
                 .createSignInIntentBuilder()
                 .setIsSmartLockEnabled(false)
                 .setAvailableProviders(providers)
                 .setLogo(R.drawable.logocookup)
                 .build(), 5);
-
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,  new HomeFragment()).commit();
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
@@ -54,11 +56,13 @@ public class MainActivity extends AppCompatActivity {
         if(requestCode == 5){
             IdpResponse response = IdpResponse.fromResultIntent(data);
             if(resultCode == RESULT_OK){
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                FirebaseUser user = mAuth.getCurrentUser();
                 System.out.println(user.getEmail());
                 System.out.println(user.getDisplayName());
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,  new HomeFragment()).commit();
                 System.out.println("Success");
             }else{
+                Toast.makeText(this,R.string.loginfail,Toast.LENGTH_LONG).show();
                 System.out.println("Fail");
                 finish();
             }
