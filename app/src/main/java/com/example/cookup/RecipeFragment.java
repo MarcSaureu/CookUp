@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -163,7 +164,10 @@ public class RecipeFragment extends Fragment implements View.OnClickListener {
                     recipe.addPreparation(preparation);
                 }
                 addRecipeToFirebase(recipe,db);
+
+                Toast.makeText(getActivity(),R.string.addedFirebase,Toast.LENGTH_LONG).show();
                 //Guardar a Firebase
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
                 //getActivity().finish();
                 //Toast
         }

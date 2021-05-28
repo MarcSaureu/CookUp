@@ -67,5 +67,6 @@
     <string name="preparationsview">Preparations</string>
 
     <string name="mapsCurrentLocation">Going to current location</string>
+    <string name="addedFirebase">Recipe added to FireStore</string>
 
 </resources>
