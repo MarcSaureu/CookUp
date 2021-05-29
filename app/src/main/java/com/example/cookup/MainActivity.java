@@ -1,9 +1,18 @@
 package com.example.cookup;
 
+import android.Manifest;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkCapabilities;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.Menu;
@@ -12,7 +21,9 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
 import com.firebase.ui.auth.AuthUI;
@@ -28,6 +39,21 @@ public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     public static Uri photo;
+    public static final String WIFI = "Wi-Fi";
+    public static final String ANY = "Any";
+    private static SharedPreferences sharedPrefs;
+
+    // Whether there is a Wi-Fi connection.
+    private static boolean wifiConnected = false;
+    // Whether there is a mobile connection.
+    private static boolean mobileConnected = false;
+    // Whether the display should be refreshed.
+
+    // The user's current network preference setting.
+    public static String sPref = null;
+    public static boolean refreshDisplay = true;
+    private MainActivity.NetworkReceiver receiver = new NetworkReceiver();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +76,17 @@ public class MainActivity extends AppCompatActivity {
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
+
+        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        receiver = new NetworkReceiver();
+        this.registerReceiver(receiver, filter);
+
+        if (Build.VERSION.SDK_INT >= 23)
+            if (! ckeckPermissions())
+                requestPermissions();
+
+
+
     }
 
     @Override
@@ -110,13 +147,72 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-
             case R.id.config:
                 startActivity(new Intent(this, com.example.cookup.preferences.PreferencesActivity.class));
                 return true;
-
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        sPref = sharedPrefs.getString("listPref", "Wi-Fi");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (receiver != null) {
+            this.unregisterReceiver(receiver);
+        }
+    }
+
+    public static class NetworkReceiver extends BroadcastReceiver {
+
+        @RequiresApi(api = Build.VERSION_CODES.M)
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            ConnectivityManager connMgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            sPref = sharedPrefs.getString("listPref", "Wi-Fi");
+            Network nw = connMgr.getActiveNetwork();
+            if (nw == null) {
+                refreshDisplay = true;
+                Toast.makeText(context, R.string.lost_connection, Toast.LENGTH_SHORT).show();
+            } else {
+                NetworkCapabilities actNw = connMgr.getNetworkCapabilities(nw);
+                if (actNw == null) {
+                    refreshDisplay = true;
+                    Toast.makeText(context, R.string.lost_connection, Toast.LENGTH_SHORT).show();
+                } else if (WIFI.equals(sPref) && (actNw.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) || actNw.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET))) {
+                    refreshDisplay = true;
+                    Toast.makeText(context, R.string.wifi_connected, Toast.LENGTH_SHORT).show();
+                } else if (ANY.equals(sPref))
+                    refreshDisplay = true;
+            }
+        }
+    }
+    private boolean ckeckPermissions() {
+        if (Build.VERSION.SDK_INT >= 23) {
+            //String[] PERMISSIONS = {android.Manifest.permission.CALL_PHONE};
+            if (ActivityCompat.checkSelfPermission(getApplicationContext(),
+                    Manifest.permission.INTERNET) ==
+                    PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(),
+                    Manifest.permission.ACCESS_NETWORK_STATE) ==
+                    PackageManager.PERMISSION_GRANTED)
+                return true;
+            else
+                return false;
+        } else
+            return true;
+    }
+
+    private void requestPermissions() {
+        ActivityCompat.requestPermissions(MainActivity.this,
+                new String[]{Manifest.permission.INTERNET, Manifest.permission.ACCESS_NETWORK_STATE,},
+                0);
     }
 }

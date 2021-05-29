@@ -32,5 +32,14 @@
         android:singleLine="true"
         android:title="@string/longitud" />
 
+    <ListPreference
+        android:title="Connexió"
+        android:summary="Tipus de connexió que vol usar"
+        android:key="listPref"
+        android:defaultValue="Wi-Fi"
+        android:entries="@array/listArray"
+        android:entryValues="@array/listValues"
+        />
+
 
 </PreferenceScreen>
