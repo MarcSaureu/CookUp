@@ -38,8 +38,6 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
         Button maps = (Button) view.findViewById(R.id.LocationButton);
         maps.setOnClickListener(this);
 
-
-
         return view;
     }
 

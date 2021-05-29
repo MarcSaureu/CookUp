@@ -26,6 +26,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
+import com.example.cookup.preferences.PreferencesActivity;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -43,15 +44,11 @@ public class MainActivity extends AppCompatActivity {
     public static final String ANY = "Any";
     private static SharedPreferences sharedPrefs;
 
-    // Whether there is a Wi-Fi connection.
     private static boolean wifiConnected = false;
-    // Whether there is a mobile connection.
     private static boolean mobileConnected = false;
-    // Whether the display should be refreshed.
-
-    // The user's current network preference setting.
-    public static String sPref = null;
     public static boolean refreshDisplay = true;
+
+    public static String sPref = null;
     private MainActivity.NetworkReceiver receiver = new NetworkReceiver();
 
 
@@ -85,8 +82,6 @@ public class MainActivity extends AppCompatActivity {
             if (! ckeckPermissions())
                 requestPermissions();
 
-
-
     }
 
     @Override
@@ -95,14 +90,9 @@ public class MainActivity extends AppCompatActivity {
         if(requestCode == 5){
             IdpResponse response = IdpResponse.fromResultIntent(data);
             if(resultCode == RESULT_OK){
-                FirebaseUser user = mAuth.getCurrentUser();
-                SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-                SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putString(getString(R.string.name), user.getDisplayName());
-                editor.putString(getString(R.string.email), user.getEmail());
-                photo = user.getPhotoUrl();
-                editor.apply();
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,  new HomeFragment()).commit();
+                setSharedPrefs();
+                Fragment fragment = activeInternet();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
                 System.out.println("Success");
             }else{
                 Toast.makeText(this,R.string.loginfail,Toast.LENGTH_LONG).show();
@@ -113,6 +103,16 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void setSharedPrefs(){
+        FirebaseUser user = mAuth.getCurrentUser();
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString(getString(R.string.name), user.getDisplayName());
+        editor.putString(getString(R.string.email), user.getEmail());
+        photo = user.getPhotoUrl();
+        editor.apply();
+    }
+
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()) {
 
                 case R.id.HomeButton:
-                    selectedFragment = new HomeFragment();
+                    selectedFragment = activeInternet();
                     break;
                 case R.id.SearchButton:
                     selectedFragment = new AdvancedSearchFragment();
@@ -137,6 +137,26 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
     };
+
+    public Fragment activeInternet(){
+
+        Fragment selectedFragment = null;
+
+        sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        sPref = sharedPrefs.getString("listPref", "Wi-Fi");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            updateConnectedFlags();
+        }
+
+        if (((sPref.equals(ANY)) && (wifiConnected || mobileConnected)) || ((sPref.equals(WIFI)) && (wifiConnected))) {
+            selectedFragment = new HomeFragment();
+        } else {
+            selectedFragment = new ErrorInternetFragment();
+        }
+
+        return selectedFragment;
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -148,18 +168,20 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.config:
-                startActivity(new Intent(this, com.example.cookup.preferences.PreferencesActivity.class));
+                startActivity(new Intent(this, PreferencesActivity.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onStart() {
         super.onStart();
         sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         sPref = sharedPrefs.getString("listPref", "Wi-Fi");
+        updateConnectedFlags();
     }
 
     @Override
@@ -167,6 +189,29 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
         if (receiver != null) {
             this.unregisterReceiver(receiver);
+        }
+    }
+
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private void updateConnectedFlags() {
+        ConnectivityManager cMgr =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        Network nw = cMgr.getActiveNetwork();
+        if (nw == null) {
+            wifiConnected = false;
+            mobileConnected = false;
+        } else {
+            NetworkCapabilities actNw = cMgr.getNetworkCapabilities(nw);
+            if (actNw == null) {
+                wifiConnected = false;
+                mobileConnected = false;
+            }
+            else if (actNw.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) || actNw.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET))
+                wifiConnected = true;
+            else if (actNw.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR))
+                mobileConnected = true;
         }
     }
 
@@ -197,7 +242,6 @@ public class MainActivity extends AppCompatActivity {
     }
     private boolean ckeckPermissions() {
         if (Build.VERSION.SDK_INT >= 23) {
-            //String[] PERMISSIONS = {android.Manifest.permission.CALL_PHONE};
             if (ActivityCompat.checkSelfPermission(getApplicationContext(),
                     Manifest.permission.INTERNET) ==
                     PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(),

@@ -76,4 +76,8 @@
     <string name="connection_error">Unable to load content. Check your network connection.</string>
     <string name="xml_error">Error parsing XML.</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="noInternet">Ho sentim hi ha hagut un problema en la connexió a internet</string>
+    <string name="noWifiErrorMessage">Tens activat la opcio de solament Wi-fi pero no es detecta cap connexió WI-Fi operativa</string>
+    <string name="noWifinoInternet">No s\'ha detectat cap tipus de connexio en el teu dispositiu. Activa-la per poder utilitzar-la</string>
+    <string name="refresh">Refrescar</string>
 </resources>
