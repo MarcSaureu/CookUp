@@ -25,6 +25,7 @@ import com.example.cookup.Logic.Preparation;
 import com.example.cookup.Logic.Recipe;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class RecipeFragment extends Fragment implements View.OnClickListener {
@@ -114,6 +115,7 @@ public class RecipeFragment extends Fragment implements View.OnClickListener {
         recipe.setDishtype(dish);
         recipe.setDescription(descrip);
         recipe.setServings(serv);
+        recipe.setDate(new Timestamp(System.currentTimeMillis()));
 
         return recipe;
     }

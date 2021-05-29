@@ -37,7 +37,7 @@
             <TextView
                 android:layout_width="190dp"
                 android:layout_height="match_parent"
-                android:text="@string/dishtype"
+                android:text="@string/foodtype"
                 android:gravity="center"/>
 
             <EditText

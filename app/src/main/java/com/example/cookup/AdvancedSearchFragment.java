@@ -69,101 +69,92 @@ public class AdvancedSearchFragment extends Fragment implements View.OnClickList
                 String name = nameRecipe.getText().toString();
                 String food = foodtype.getText().toString();
                 String dish = dishtype.getText().toString();
-                //En altres casos crida a la Main Activity amb la query obtinguda per FireBase amb les receptes a mostrar
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
 
                 if(name.isEmpty() && food.isEmpty() && dish.isEmpty()){
-                    db.collection("recipes").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    db.collection("recipes").orderBy("date", Query.Direction.DESCENDING).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
                             if(task.isSuccessful()){
                                 for(QueryDocumentSnapshot document : task.getResult()){
                                     createRecipefromDocument(document);
-                                    System.out.println(1);
                                 }
                             }
                         }
                     });
                 }else if(food.isEmpty() && dish.isEmpty()){
-                    db.collection("recipes").whereEqualTo("name", name).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    db.collection("recipes").orderBy("date", Query.Direction.DESCENDING).whereEqualTo("name", name).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
                             if(task.isSuccessful()){
                                 for(QueryDocumentSnapshot document : task.getResult()){
                                     createRecipefromDocument(document);
-                                    System.out.println(1);
                                 }
                             }
                         }
                     });
                 }else if(name.isEmpty() && dish.isEmpty()){
-                    db.collection("recipes").whereEqualTo("food", food).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    db.collection("recipes").orderBy("date", Query.Direction.DESCENDING).whereEqualTo("food", food).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
                             if (task.isSuccessful()){
                                 for(QueryDocumentSnapshot document : task.getResult()){
                                     createRecipefromDocument(document);
-                                    System.out.println(1);
                                 }
                             }
                         }
                     });
                 }else if(name.isEmpty() && food.isEmpty()){
-                    db.collection("recipes").whereEqualTo("dish", dish).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    db.collection("recipes").orderBy("date", Query.Direction.DESCENDING).whereEqualTo("dish", dish).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
                             if (task.isSuccessful()){
                                 for(QueryDocumentSnapshot document : task.getResult()){
                                     createRecipefromDocument(document);
-                                    System.out.println(1);
                                 }
                             }
                         }
                     });
                 }else if(name.isEmpty()){
-                    db.collection("recipes").whereEqualTo("food", food).whereEqualTo("dish", dish).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    db.collection("recipes").orderBy("date", Query.Direction.DESCENDING).whereEqualTo("food", food).whereEqualTo("dish", dish).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
                             if(task.isSuccessful()){
                                 for(QueryDocumentSnapshot document : task.getResult()){
                                     createRecipefromDocument(document);
-                                    System.out.println(1);
                                 }
                             }
                         }
                     });
                 }else if(food.isEmpty()){
-                    db.collection("recipes").whereEqualTo("name", name).whereEqualTo("dish", dish).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    db.collection("recipes").orderBy("date", Query.Direction.DESCENDING).whereEqualTo("name", name).whereEqualTo("dish", dish).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
                             if(task.isSuccessful()){
                                 for(QueryDocumentSnapshot document : task.getResult()){
                                     createRecipefromDocument(document);
-                                    System.out.println(1);
                                 }
                             }
                         }
                     });
                 }else if(dish.isEmpty()){
-                    db.collection("recipes").whereEqualTo("name", name).whereEqualTo("food", food).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    db.collection("recipes").orderBy("date", Query.Direction.DESCENDING).whereEqualTo("name", name).whereEqualTo("food", food).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
                             if(task.isSuccessful()){
                                 for(QueryDocumentSnapshot document : task.getResult()){
                                     createRecipefromDocument(document);
-                                    System.out.println(1);
                                 }
                             }
                         }
                     });
                 }else{
-                    db.collection("recipes").whereEqualTo("name", name).whereEqualTo("food", food).whereEqualTo("dish", dish).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    db.collection("recipes").orderBy("date", Query.Direction.DESCENDING).whereEqualTo("name", name).whereEqualTo("food", food).whereEqualTo("dish", dish).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
                             if(task.isSuccessful()){
                                 for(QueryDocumentSnapshot document : task.getResult()){
                                     createRecipefromDocument(document);
-                                    System.out.println(1);
                                 }
                             }
                         }
@@ -172,7 +163,7 @@ public class AdvancedSearchFragment extends Fragment implements View.OnClickList
                 break;
             case R.id.AdvSearcher_button:
                 Intent mainintent1 = new Intent(getActivity(), AdvancedSearchResultActivity.class);
-                mainintent1.putExtra("recipes", recipes);//Afegir el result de la query de Firebase
+                mainintent1.putExtra("recipes", recipes);
                 startActivity(mainintent1);
         }
     }

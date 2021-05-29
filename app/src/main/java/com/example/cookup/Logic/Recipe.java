@@ -1,7 +1,9 @@
 package com.example.cookup.Logic;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 
 import lombok.Data;
 
@@ -14,6 +16,7 @@ public class Recipe implements Serializable {
     private int servings;
     private ArrayList<Ingredient> ingredients = new ArrayList<>();
     private ArrayList<Preparation> preparations = new ArrayList<>();
+    private Date date;
 
     public Recipe(String name) {
         this.name = name;
