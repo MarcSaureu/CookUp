@@ -18,7 +18,7 @@
     <string name="ingredientpreparation">Preparacio</string>
     <string name="createPreparation">Crear Preparacio</string>
     <string name="name">Nom</string>
-    <string name="namedefault">Marc Saureu</string>
+    <string name="namedefault">None</string>
     <string name="editProfileButton">Editar</string>
     <string name="membership">Membership</string>
     <string name="address">Address</string>

@@ -3,6 +3,7 @@ package com.example.cookup;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.Menu;
@@ -26,6 +27,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
+    public static Uri photo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,8 +59,12 @@ public class MainActivity extends AppCompatActivity {
             IdpResponse response = IdpResponse.fromResultIntent(data);
             if(resultCode == RESULT_OK){
                 FirebaseUser user = mAuth.getCurrentUser();
-                System.out.println(user.getEmail());
-                System.out.println(user.getDisplayName());
+                SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putString(getString(R.string.name), user.getDisplayName());
+                editor.putString(getString(R.string.email), user.getEmail());
+                photo = user.getPhotoUrl();
+                editor.apply();
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,  new HomeFragment()).commit();
                 System.out.println("Success");
             }else{

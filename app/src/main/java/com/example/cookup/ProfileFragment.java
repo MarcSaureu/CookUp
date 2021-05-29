@@ -2,6 +2,7 @@ package com.example.cookup;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,8 +20,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+
 public class ProfileFragment extends Fragment implements View.OnClickListener{
 
+    ImageLoader imageLoader;
+    DisplayImageOptions options;
 
     @Nullable
     @Override
@@ -29,6 +37,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
 
         Button maps = (Button) view.findViewById(R.id.LocationButton);
         maps.setOnClickListener(this);
+
+
 
         return view;
     }
@@ -43,6 +53,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
 
         TextView name = (TextView) getActivity().findViewById(R.id.namedefault);
         TextView email = (TextView) getActivity().findViewById(R.id.emailInput);
+        ImageView imageView = (ImageView) getActivity().findViewById(R.id.profile_image);
 
         SharedPreferences mySharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
 
@@ -51,6 +62,21 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
 
         name.setText(alias);
         email.setText(mail);
+
+        Uri photo = MainActivity.photo;
+
+        imageLoader = ImageLoader.getInstance();
+        imageLoader.init(ImageLoaderConfiguration.createDefault(getActivity().getApplicationContext()));
+
+        if(photo != null){
+            options = new DisplayImageOptions.Builder()
+                    .showStubImage(R.drawable.ic_launcher_foreground)
+                    .showImageForEmptyUri(R.drawable.ic_launcher_background)
+                    .cacheInMemory()
+                    .cacheOnDisc()
+                    .build();
+            imageLoader.displayImage(photo.toString(), imageView, options, null);
+        }
 
     }
 
@@ -100,4 +126,5 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
                 return super.onOptionsItemSelected(item);
         }
     }
+
 }

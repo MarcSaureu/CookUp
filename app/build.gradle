@@ -6,6 +6,8 @@ plugins {
 android {
     compileSdkVersion 30
     buildToolsVersion "29.0.3"
+    useLibrary 'org.apache.http.legacy'
+
 
     defaultConfig {
         applicationId "com.example.cookup"
@@ -55,6 +57,11 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
     implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+    implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
+
+
+
 
 
 }

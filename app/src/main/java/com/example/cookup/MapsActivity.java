@@ -93,8 +93,6 @@ public class MapsActivity extends AppCompatActivity
         createLocationCallback();
 
         startLocationUpdates();
-
-
     }
 
 
