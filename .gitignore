@@ -7,7 +7,7 @@
 /captures
 .externalNativeBuild
 .cxx
-/functions/node_modules
+/functions/node_modules/
 
 # Project exclude paths
 /.gradle/
