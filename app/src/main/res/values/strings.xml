@@ -80,4 +80,6 @@
     <string name="noWifiErrorMessage">Tens activat la opcio de solament Wi-fi pero no es detecta cap connexió WI-Fi operativa</string>
     <string name="noWifinoInternet">No s\'ha detectat cap tipus de connexio en el teu dispositiu. Activa-la per poder utilitzar-la</string>
     <string name="refresh">Refrescar</string>
+    <string name="default_notification_channel_id">CookUp_channel</string>
+    <string name="fcm_message">Nova Recepta</string>
 </resources>

@@ -30,10 +30,13 @@ import com.example.cookup.Logic.User;
 import com.example.cookup.preferences.PreferencesActivity;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.Arrays;
 import java.util.List;
@@ -52,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static String sPref = null;
     private MainActivity.NetworkReceiver receiver = new NetworkReceiver();
+    private MyFirebaseMessagingService fms = new MyFirebaseMessagingService();
 
 
     @Override
@@ -94,8 +98,17 @@ public class MainActivity extends AppCompatActivity {
             if(resultCode == RESULT_OK){
                 FirebaseUser user = mAuth.getCurrentUser();
                 setSharedPrefs();
-                FirebaseFirestore db = FirebaseFirestore.getInstance();
-                db.collection("users").document(user.getEmail()).set(new User(user.getDisplayName(), user.getUid()));
+                FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if(!task.isSuccessful()){
+                            return;
+                        }
+                        String token = task.getResult();
+                        fms.onNewToken(token);
+
+                    }
+                });
                 Fragment fragment = activeInternet();
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
                 System.out.println("Success");
