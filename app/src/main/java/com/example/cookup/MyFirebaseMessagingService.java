@@ -31,9 +31,8 @@ public class MyFirebaseMessagingService extends com.google.firebase.messaging.Fi
     }
 
     private void sendRegistrationToServer(String token) {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("users").document(user.getEmail()).set(new User(user.getDisplayName(), user.getUid(), token));
+        db.collection("users").document(token).set(new User(token));
     }
 
     private void sendNotification(String messageBody) {
