@@ -82,4 +82,6 @@
     <string name="refresh">Refrescar</string>
     <string name="default_notification_channel_id">CookUp_channel</string>
     <string name="fcm_message">Nova Recepta</string>
+    <string name="coordinates">Coordenades</string>
+    <string name="coordinatesInput">-</string>
 </resources>

@@ -52,14 +52,18 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
         TextView name = (TextView) getActivity().findViewById(R.id.namedefault);
         TextView email = (TextView) getActivity().findViewById(R.id.emailInput);
         ImageView imageView = (ImageView) getActivity().findViewById(R.id.profile_image);
+        TextView coordinates = (TextView) getActivity().findViewById(R.id.coordinatesInput);
 
         SharedPreferences mySharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
 
         String alias = mySharedPreferences.getString(getString(R.string.name), "No name");
         String mail = mySharedPreferences.getString(getString(R.string.email), "No email");
+        String lat = mySharedPreferences.getString(getString(R.string.latitud), "-");
+        String lon = mySharedPreferences.getString(getString(R.string.longitud), "-");
 
         name.setText(alias);
         email.setText(mail);
+        coordinates.setText(String.format("Lat: %s \nLon: %s", lat, lon));
 
         Uri photo = MainActivity.photo;
 

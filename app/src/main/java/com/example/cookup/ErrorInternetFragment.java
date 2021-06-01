@@ -41,6 +41,7 @@ public class ErrorInternetFragment extends Fragment {
 
         NetworkCapabilities actNw = cMgr.getNetworkCapabilities(nw);
 
+        if(nw == null)
         if(!actNw.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)){
             errorMessage.append(". " + this.getResources().getString(R.string.noWifiErrorMessage));
         } else if(!actNw.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
