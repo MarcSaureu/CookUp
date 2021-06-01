@@ -8,11 +8,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.cookup.Logic.Preparation;
+import com.google.android.material.textfield.TextInputEditText;
 
 public class PreparationActivity extends AppCompatActivity implements View.OnClickListener  {
 
@@ -29,7 +29,8 @@ public class PreparationActivity extends AppCompatActivity implements View.OnCli
 
     @Override
     public void onClick(View v) {
-        EditText passpreparation = findViewById(R.id.passPreparation);
+
+        TextInputEditText passpreparation = findViewById(R.id.passPreparation);
 
         String pass = passpreparation.getText().toString();
 

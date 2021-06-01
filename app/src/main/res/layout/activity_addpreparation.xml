@@ -23,21 +23,29 @@
 
         </LinearLayout>
 
-        <EditText
-            android:background="@drawable/prep_text"
-            android:id="@+id/passPreparation"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/passPreparationLayout"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:inputType="text"/>
+            android:layout_height="wrap_content"
+            android:hint="@string/preparacióRecepta">
 
-        <Button
-            android:id="@+id/createPreparationButton"
-            android:layout_width="wrap_content"
-            android:layout_height="65dp"
-            android:layout_gravity="center"
-            android:text="@string/createPreparation"
-            android:layout_marginTop="20dp"/>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/passPreparation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/createPreparationButton"
+        android:layout_width="wrap_content"
+        android:layout_height="65dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="116dp"
+        android:layout_marginTop="500dp"
+        android:text="@string/createPreparation" />
 
 </RelativeLayout>
