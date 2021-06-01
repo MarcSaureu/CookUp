@@ -84,4 +84,6 @@
     <string name="fcm_message">Nova Recepta</string>
     <string name="coordinates">Coordenades</string>
     <string name="coordinatesInput">-</string>
+    <string name="nameRecipeLeft">S\'ha d\'afegir nom de Recepta</string>
+    <string name="numberRecipeLeft">Falta afegir el nombre de persones per la recepta</string>
 </resources>

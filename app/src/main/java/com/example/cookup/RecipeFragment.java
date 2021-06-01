@@ -17,8 +17,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.example.cookup.Logic.Ingredient;
 import com.example.cookup.Logic.Preparation;
@@ -45,6 +43,8 @@ public class RecipeFragment extends Fragment implements View.OnClickListener {
     ArrayAdapter<String> ingradapter;
     ArrayAdapter<String> prepadapter;
 
+    EditText nameRecipe;
+
 
     @Nullable
     @Override
@@ -62,6 +62,8 @@ public class RecipeFragment extends Fragment implements View.OnClickListener {
         addIngredient.setOnClickListener(this);
         addPreparation.setOnClickListener(this);
         createRecipe.setOnClickListener(this);
+
+        nameRecipe = view.findViewById(R.id.nameRecipe);
 
         return view;
     }
@@ -98,7 +100,8 @@ public class RecipeFragment extends Fragment implements View.OnClickListener {
     }
 
     public Recipe createRecipeWithValues(){
-        EditText nameRecipe = view.findViewById(R.id.nameRecipe);
+
+        int serv = 0;
         EditText foodtype = view.findViewById(R.id.foodtype);
         EditText dishtype = view.findViewById(R.id.dishtype);
         EditText description = view.findViewById(R.id.description);
@@ -108,16 +111,21 @@ public class RecipeFragment extends Fragment implements View.OnClickListener {
         String food = foodtype.getText().toString();
         String dish = dishtype.getText().toString();
         String descrip = description.getText().toString();
-        int serv = Integer.parseInt(servings.getText().toString());
 
-        Recipe recipe = new Recipe(name);
-        recipe.setFoodtype(food);
-        recipe.setDishtype(dish);
-        recipe.setDescription(descrip);
-        recipe.setServings(serv);
-        recipe.setDate(new Timestamp(System.currentTimeMillis()));
+        try {
+            serv = Integer.parseInt(servings.getText().toString());
 
-        return recipe;
+        } finally {
+
+            Recipe recipe = new Recipe(name);
+            recipe.setFoodtype(food);
+            recipe.setDishtype(dish);
+            recipe.setDescription(descrip);
+            recipe.setServings(serv);
+            recipe.setDate(new Timestamp(System.currentTimeMillis()));
+
+            return recipe;
+        }
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -157,21 +165,26 @@ public class RecipeFragment extends Fragment implements View.OnClickListener {
                 break;
 
             case R.id.createRecipeButton:
-                FirebaseFirestore db = FirebaseFirestore.getInstance();
-                Recipe recipe = createRecipeWithValues();
-                for (Ingredient ingredient : ingredients) {
-                    recipe.addIngredient((ingredient));
-                }
-                for (Preparation preparation : preparations) {
-                    recipe.addPreparation(preparation);
-                }
-                addRecipeToFirebase(recipe,db);
 
-                Toast.makeText(getActivity(),R.string.addedFirebase,Toast.LENGTH_LONG).show();
-                //Guardar a Firebase
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
-                //getActivity().finish();
-                //Toast
+                if(!nameRecipe.getText().toString().equals("")){
+                    FirebaseFirestore db = FirebaseFirestore.getInstance();
+                    Recipe recipe = createRecipeWithValues();
+                    for (Ingredient ingredient : ingredients) {
+                        recipe.addIngredient((ingredient));
+                    }
+                    for (Preparation preparation : preparations) {
+                        recipe.addPreparation(preparation);
+                    }
+                    addRecipeToFirebase(recipe,db);
+
+                    Toast.makeText(getActivity(),R.string.addedFirebase,Toast.LENGTH_LONG).show();
+                    //Guardar a Firebase
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+                    //getActivity().finish();
+                    //Toast
+                }else {
+                    Toast.makeText(getActivity(),R.string.nameRecipeLeft,Toast.LENGTH_LONG).show();
+                }
         }
     }
 }
