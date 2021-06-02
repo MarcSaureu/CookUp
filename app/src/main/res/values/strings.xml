@@ -86,5 +86,6 @@
     <string name="coordinatesInput">-</string>
     <string name="nameRecipeLeft">S\'ha d\'afegir nom de Recepta</string>
     <string name="numberRecipeLeft">Falta afegir el nombre de persones per la recepta</string>
-    <string name="preparacióRecepta">Escriu la preparació...</string>
+    <string name="preparacióRecepta">Escriu la preparació…</string>
+    <string name="connection_enabled">Connexio activa</string>
 </resources>

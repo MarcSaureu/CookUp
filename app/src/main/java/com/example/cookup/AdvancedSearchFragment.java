@@ -162,7 +162,6 @@ public class AdvancedSearchFragment extends Fragment implements View.OnClickList
                         }
                     });
                 }
-                System.out.println(recipes.size());
                 break;
             case R.id.AdvSearcher_button:
                 Intent mainintent1 = new Intent(getActivity(), AdvancedSearchResultActivity.class);

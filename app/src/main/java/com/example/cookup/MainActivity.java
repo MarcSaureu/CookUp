@@ -49,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
 
     private static boolean wifiConnected = false;
     private static boolean mobileConnected = false;
-    public static boolean refreshDisplay = true;
 
     public static String sPref = null;
     private MainActivity.NetworkReceiver receiver = new NetworkReceiver();
@@ -241,18 +240,15 @@ public class MainActivity extends AppCompatActivity {
             sPref = sharedPrefs.getString("listPref", "Wi-Fi");
             Network nw = connMgr.getActiveNetwork();
             if (nw == null) {
-                refreshDisplay = true;
                 Toast.makeText(context, R.string.lost_connection, Toast.LENGTH_SHORT).show();
             } else {
                 NetworkCapabilities actNw = connMgr.getNetworkCapabilities(nw);
                 if (actNw == null) {
-                    refreshDisplay = true;
                     Toast.makeText(context, R.string.lost_connection, Toast.LENGTH_SHORT).show();
                 } else if (WIFI.equals(sPref) && (actNw.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) || actNw.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET))) {
-                    refreshDisplay = true;
                     Toast.makeText(context, R.string.wifi_connected, Toast.LENGTH_SHORT).show();
                 } else if (ANY.equals(sPref))
-                    refreshDisplay = true;
+                    Toast.makeText(context, R.string.connection_enabled, Toast.LENGTH_SHORT).show();
             }
         }
     }
