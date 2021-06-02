@@ -60,7 +60,7 @@
                 android:gravity="center"/>
 
             <TextView
-                android:layout_width="50dp"
+                android:layout_width="56dp"
                 android:layout_height="60dp"
                 android:text="@string/foodview"
                 android:textStyle="bold"
@@ -68,7 +68,7 @@
 
             <TextView
                 android:id="@+id/RecipeFoodView"
-                android:layout_width="146dp"
+                android:layout_width="140dp"
                 android:layout_height="60dp"
                 android:gravity="center"/>
 
