@@ -38,7 +38,7 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="nickname">Nom:</string>
     <string name="saveProfile">Guardar</string>
-    <string name="cancelSaveProfile">Cancel</string>
+    <string name="cancelSaveProfile">Cancel·lar</string>
     <string name="maps">mapsEnable</string>
     <string name="location">Localització</string>
     <string name="locationdefault">Apagada</string>
@@ -58,20 +58,20 @@
     <string name="addRecipe">Nova Recepta</string>
     <string name="home">Home</string>
 
-    <string name="nameview">Name</string>
-    <string name="servingview">Servings</string>
-    <string name="dishview">Dish</string>
-    <string name="foodview">Food</string>
-    <string name="descriptionview">Description</string>
+    <string name="nameview">Nom</string>
+    <string name="servingview">Racions</string>
+    <string name="dishview">Plat</string>
+    <string name="foodview">Menjada</string>
+    <string name="descriptionview">Descripció</string>
     <string name="ingredientsview">Ingredients</string>
-    <string name="preparationsview">Preparations</string>
+    <string name="preparationsview">Preparació</string>
 
     <string name="mapsCurrentLocation">Going to current location</string>
     <string name="addedFirebase">Recipe added to FireStore</string>
     <string name="loginfail">Failed to Login</string>
 
 
-    <string name="lost_connection">Lost connection.</string>
+    <string name="lost_connection">Connexió Perduda.</string>
     <string name="wifi_connected">Wi-Fi reconnected.</string>
     <string name="connection_error">Unable to load content. Check your network connection.</string>
     <string name="xml_error">Error parsing XML.</string>
