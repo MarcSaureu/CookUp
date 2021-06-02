@@ -22,7 +22,7 @@ import androidx.fragment.app.Fragment;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.squareup.picasso.Picasso;
 
 public class ProfileFragment extends Fragment implements View.OnClickListener{
 
@@ -66,19 +66,11 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
         coordinates.setText(String.format("Lat: %s \nLon: %s", lat, lon));
 
         Uri photo = MainActivity.photo;
-
-        imageLoader = ImageLoader.getInstance();
-        imageLoader.init(ImageLoaderConfiguration.createDefault(getActivity().getApplicationContext()));
-
-        if(photo != null){
-            options = new DisplayImageOptions.Builder()
-                    .showStubImage(R.drawable.ic_launcher_foreground)
-                    .showImageForEmptyUri(R.drawable.ic_launcher_background)
-                    .cacheInMemory()
-                    .cacheOnDisc()
-                    .build();
-            imageLoader.displayImage(photo.toString(), imageView, options, null);
+        if(photo!=null){
+            Picasso.get().load(photo).into(imageView);
         }
+
+
 
     }
 

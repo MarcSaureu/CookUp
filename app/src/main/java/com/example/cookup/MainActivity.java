@@ -26,7 +26,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
-import com.example.cookup.Logic.User;
 import com.example.cookup.preferences.PreferencesActivity;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
@@ -35,7 +34,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.Arrays;
@@ -85,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
         this.registerReceiver(receiver, filter);
 
         if (Build.VERSION.SDK_INT >= 23)
-            if (! ckeckPermissions())
+            if (! checkPermissions())
                 requestPermissions();
 
     }
@@ -258,7 +256,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-    private boolean ckeckPermissions() {
+    private boolean checkPermissions() {
         if (Build.VERSION.SDK_INT >= 23) {
             if (ActivityCompat.checkSelfPermission(getApplicationContext(),
                     Manifest.permission.INTERNET) ==
