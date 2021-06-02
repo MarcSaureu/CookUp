@@ -28,7 +28,9 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
@@ -72,7 +74,7 @@ public class AdvancedSearchFragment extends Fragment implements View.OnClickList
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
 
                 if(name.isEmpty() && food.isEmpty() && dish.isEmpty()){
-                    db.collection("recipes").orderBy("date", Query.Direction.DESCENDING).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    db.collection("recipes").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
                             if(task.isSuccessful()){
@@ -83,7 +85,7 @@ public class AdvancedSearchFragment extends Fragment implements View.OnClickList
                         }
                     });
                 }else if(food.isEmpty() && dish.isEmpty()){
-                    db.collection("recipes").orderBy("date", Query.Direction.DESCENDING).whereEqualTo("name", name).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    db.collection("recipes").whereEqualTo("name", name).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
                             if(task.isSuccessful()){
@@ -94,7 +96,7 @@ public class AdvancedSearchFragment extends Fragment implements View.OnClickList
                         }
                     });
                 }else if(name.isEmpty() && dish.isEmpty()){
-                    db.collection("recipes").orderBy("date", Query.Direction.DESCENDING).whereEqualTo("food", food).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    db.collection("recipes").whereEqualTo("foodtype", food).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
                             if (task.isSuccessful()){
@@ -105,7 +107,7 @@ public class AdvancedSearchFragment extends Fragment implements View.OnClickList
                         }
                     });
                 }else if(name.isEmpty() && food.isEmpty()){
-                    db.collection("recipes").orderBy("date", Query.Direction.DESCENDING).whereEqualTo("dish", dish).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    db.collection("recipes").whereEqualTo("dishtype", dish).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
                             if (task.isSuccessful()){
@@ -116,7 +118,7 @@ public class AdvancedSearchFragment extends Fragment implements View.OnClickList
                         }
                     });
                 }else if(name.isEmpty()){
-                    db.collection("recipes").orderBy("date", Query.Direction.DESCENDING).whereEqualTo("food", food).whereEqualTo("dish", dish).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    db.collection("recipes").whereEqualTo("foodtype", food).whereEqualTo("dishtype", dish).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
                             if(task.isSuccessful()){
@@ -127,7 +129,7 @@ public class AdvancedSearchFragment extends Fragment implements View.OnClickList
                         }
                     });
                 }else if(food.isEmpty()){
-                    db.collection("recipes").orderBy("date", Query.Direction.DESCENDING).whereEqualTo("name", name).whereEqualTo("dish", dish).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    db.collection("recipes").whereEqualTo("name", name).whereEqualTo("dishtype", dish).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
                             if(task.isSuccessful()){
@@ -138,7 +140,7 @@ public class AdvancedSearchFragment extends Fragment implements View.OnClickList
                         }
                     });
                 }else if(dish.isEmpty()){
-                    db.collection("recipes").orderBy("date", Query.Direction.DESCENDING).whereEqualTo("name", name).whereEqualTo("food", food).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    db.collection("recipes").whereEqualTo("name", name).whereEqualTo("foodtype", food).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
                             if(task.isSuccessful()){
@@ -149,7 +151,7 @@ public class AdvancedSearchFragment extends Fragment implements View.OnClickList
                         }
                     });
                 }else{
-                    db.collection("recipes").orderBy("date", Query.Direction.DESCENDING).whereEqualTo("name", name).whereEqualTo("food", food).whereEqualTo("dish", dish).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    db.collection("recipes").whereEqualTo("name", name).whereEqualTo("foodtype", food).whereEqualTo("dishtype", dish).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
                             if(task.isSuccessful()){
@@ -160,6 +162,7 @@ public class AdvancedSearchFragment extends Fragment implements View.OnClickList
                         }
                     });
                 }
+                System.out.println(recipes.size());
                 break;
             case R.id.AdvSearcher_button:
                 Intent mainintent1 = new Intent(getActivity(), AdvancedSearchResultActivity.class);

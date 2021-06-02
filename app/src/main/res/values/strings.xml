@@ -4,8 +4,8 @@
     <string name="preparesearcher">Preparar Busqueda</string>
     <string name="search_bar">Escriu per buscar</string>
     <string name="nameRecipe">Nom de la Recepta</string>
-    <string name="dishtype">Tipus de Menjada</string>
-    <string name="foodtype">Tipus de Recepta</string>
+    <string name="dishtype">Tipus de Menjada (Dinar)</string>
+    <string name="foodtype">Tipus de Recepta (Carn)</string>
     <string name="description">Descripcio Recepta</string>
     <string name="servings">Nombre de persones</string>
     <string name="addPreparation">Afegir Preparacio</string>
